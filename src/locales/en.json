@@ -1,0 +1,18 @@
+{
+	"label": {
+		"connection": "Connection",
+		"logout": "Logout",
+		"email": "Email",
+		"password": "Password",
+		"cancel": "Cancel",
+		"increment": "Increment",
+		"decrement": "Decrement"
+	},
+	"login": {
+		"title": "Login",
+		"error": "Incorrect login"
+	},
+	"home": {
+		"title": "Home"
+	}
+}
