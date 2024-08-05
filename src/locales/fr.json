@@ -2,7 +2,7 @@
 	"label": {
 		"connection": "Connexion",
 		"logout": "Déconnexion",
-		"email": "Email",
+		"username": "Utilisateur",
 		"password": "Mot de passe",
 		"cancel": "Annuler",
 		"increment": "Incrémenter",
