@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn } from '../../redux/reducers/authSlice'
@@ -8,10 +8,10 @@ import profilePicture from '/profile-picture.jpg'
 
 const Navbar = () => {
 	const { t } = useTranslation()
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	const toggleDropdown = () => {
 		setIsDropdownOpen(!isDropdownOpen)
@@ -38,10 +38,10 @@ const Navbar = () => {
 	return (
 		<nav className="bg-white border-gray-200 dark:bg-gray-900">
 			<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-				<a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+				<Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
 					<img src={logo} className="h-8" alt="" width={36} height={32} />
 					<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">React project</span>
-				</a>
+				</Link>
 				<div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse" style={{ position: 'relative' }}>
 					<button onClick={toggleDropdown} type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isDropdownOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 						<span className="sr-only">Open user menu</span>
@@ -54,19 +54,19 @@ const Navbar = () => {
 						</div>
 						<ul className="py-2" aria-labelledby="user-menu-button">
 							<li>
-								<a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
 									Dashboard
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
 									Settings
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
 									Earnings
-								</a>
+								</Link>
 							</li>
 							<li onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
 								{t('label.logout')}
@@ -83,29 +83,29 @@ const Navbar = () => {
 				<div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? '' : 'hidden'}`} id="navbar-user">
 					<ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 						<li>
-							<a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
+							<Link to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
 								Home
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="/tests" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+							<Link to="/tests" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
 								Tests
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+							<Link to="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
 								Services
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+							<Link to="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
 								Pricing
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+							<Link to="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
 								Contact
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn } from '../../redux/reducers/authSlice'
@@ -102,9 +102,9 @@ const Login = () => {
 						{error && <div className="error smallMargin-t">{error}</div>}
 						<div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
 							<button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-							<a className="ml-4" href="/">
+							<Link to="/" className="ml-4">
 								{t('label.cancel')}
-							</a>
+							</Link>
 						</div>
 					</div>
 				</form>

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import Logout from './Logout'
 
 const LoggedHome = () => {
@@ -9,7 +10,7 @@ const LoggedHome = () => {
 			<h1 className="my-4 text-2xl font-semibold">{t('home.title')}</h1>
 			<ul>
 				<li>
-					<a href="/tests">Tests</a>
+					<Link to="/tests">Tests</Link>
 				</li>
 			</ul>
 			<Logout />
