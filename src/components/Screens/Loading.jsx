@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 
-const Loading = ({ children = 'Loading' }) => (
+const Loading = ({ message = 'Loading' }) => (
 	<>
-		<h1 className="flex text-center my-4 text-2xl font-semibold">{children}</h1>
+		<h1 className="flex text-center my-4 text-2xl font-semibold">{message}</h1>
 	</>
 )
 
 Loading.propTypes = {
-	children: PropTypes.string,
+	message: PropTypes.string,
 }
 
 export default Loading
