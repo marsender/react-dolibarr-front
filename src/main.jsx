@@ -4,12 +4,15 @@ import { I18nextProvider } from 'react-i18next'
 import store from './redux/store'
 import App from './App.jsx'
 import i18n from './i18n'
+import { ErrorBoundaryProvider } from './components/ErrorBoundary/ErrorBoundaryContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<Provider store={store}>
 		<I18nextProvider i18n={i18n}>
-			<App />
+			<ErrorBoundaryProvider>
+				<App />
+			</ErrorBoundaryProvider>
 		</I18nextProvider>
 	</Provider>
 )

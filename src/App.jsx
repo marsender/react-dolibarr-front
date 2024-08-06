@@ -7,6 +7,7 @@ import Loading from './components/Screens/Loading'
 import LoggedApp from './components/Screens/LoggedApp'
 import UnloggedApp from './components/Screens/UnloggedApp'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+import ErrorLogger from './components/ErrorBoundary/ErrorLogger'
 
 axios.defaults.withCredentials = true
 axios.defaults.https = process.env.SITE_URL.search('https') > -1
@@ -22,9 +23,12 @@ function App() {
 	}, [])
 
 	return (
-		<ErrorBoundary>
-			<Suspense fallback={<Loading />}>{logged ? <LoggedApp /> : <UnloggedApp />}</Suspense>
-		</ErrorBoundary>
+		<>
+			<ErrorLogger />
+			<ErrorBoundary>
+				<Suspense fallback={<Loading />}>{logged ? <LoggedApp /> : <UnloggedApp />}</Suspense>
+			</ErrorBoundary>
+		</>
 	)
 }
 
