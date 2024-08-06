@@ -11,11 +11,14 @@
 		"increment": "Increment",
 		"decrement": "Decrement"
 	},
+	"home": {
+		"title": "Home"
+	},
 	"login": {
 		"title": "Login",
 		"error": "Incorrect login"
 	},
-	"home": {
-		"title": "Home"
+	"invoices": {
+		"title": "Invoices"
 	}
 }

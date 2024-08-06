@@ -10,7 +10,7 @@ const LoggedHome = () => {
 			<h1 className="my-4 text-2xl font-semibold">{t('home.title')}</h1>
 			<ul>
 				<li>
-					<Link to="/tests">Tests</Link>
+					<Link to="/invoices">{t('invoices.title')}</Link>
 				</li>
 			</ul>
 			<Logout />
