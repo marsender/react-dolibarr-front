@@ -18,6 +18,9 @@
 		"title": "Login",
 		"error": "Incorrect login"
 	},
+	"logout": {
+		"title": "Logout"
+	},
 	"invoices": {
 		"title": "Invoices"
 	}

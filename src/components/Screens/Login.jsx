@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,10 @@ const Login = () => {
 	const [error, setError] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		document.title = t('app.title') + ' - ' + t('login.title')
+	}, [])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

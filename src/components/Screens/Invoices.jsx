@@ -1,7 +1,12 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Invoices = () => {
 	const { t } = useTranslation()
+
+	useEffect(() => {
+		document.title = t('app.title') + ' - ' + t('invoices.title')
+	}, [])
 
 	return (
 		<>

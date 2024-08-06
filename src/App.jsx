@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import axios from 'axios'
@@ -17,10 +17,6 @@ function App() {
 	const { t } = useTranslation()
 	const logged = useSelector((state) => state.authReducer.isLoggedIn)
 	console.log('logged: %o', logged)
-
-	useEffect(() => {
-		document.title = t('app.title')
-	}, [])
 
 	return (
 		<>

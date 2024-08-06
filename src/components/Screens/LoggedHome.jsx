@@ -1,9 +1,14 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Logout from './Logout'
 
 const LoggedHome = () => {
 	const { t } = useTranslation()
+
+	useEffect(() => {
+		document.title = t('app.title') + ' - ' + t('home.title')
+	}, [])
 
 	return (
 		<>
@@ -13,7 +18,6 @@ const LoggedHome = () => {
 					<Link to="/invoices">{t('invoices.title')}</Link>
 				</li>
 			</ul>
-			<Logout />
 		</>
 	)
 }

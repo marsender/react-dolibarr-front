@@ -18,6 +18,9 @@
 		"title": "Connexion",
 		"error": "Login incorrect"
 	},
+	"logout": {
+		"title": "Déconnexion"
+	},
 	"invoices": {
 		"title": "Factures"
 	}
