@@ -7,10 +7,11 @@ Dolibarr front
 This project require the following to get started:
 
 - node
+- a Dolibarr instance with api enabled
 
 ## Install
 
-Clone [React project repository](https://github.com/marsender/react-dolibarr-front)
+Clone [React dolibarr front repository](https://github.com/marsender/react-dolibarr-front)
 
 ```bash
 git clone git@github.com:marsender/react-dolibarr-front.git
