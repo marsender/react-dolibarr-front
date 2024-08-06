@@ -32,10 +32,19 @@ SITE_URL=http://react-dolibarr-front.localhost:9011/
 API_URL=http://opale.localhost/dolibarr/api/index.php/
 ```
 
-Build for dev
+## Build for dev
 
 ```bash
 npm run dev
 ```
 
 Open the app in your browser http://react-dolibarr-front.localhost:9011/
+
+## Build for prod
+
+```bash
+npm run build
+npm run preview
+```
+
+Open the app in your browser http://react-dolibarr-front.localhost:4174/
