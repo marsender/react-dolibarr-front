@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Navigate, Route } from 'react-router-d
 import Login from './Login'
 import UnloggedHome from './UnloggedHome'
 import Loading from './Loading'
-import logo from '/react.svg'
+import logo from '/vite.svg'
 
 const UnloggedApp = () => {
 	const { t } = useTranslation()
@@ -11,7 +11,7 @@ const UnloggedApp = () => {
 	return (
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
-				React project (unlogged app)
+				{t('app.title')}
 				<img src={logo} alt="Vite logo" className="inline-image ml-2" />
 			</h1>
 			<Router>

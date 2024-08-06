@@ -1,4 +1,7 @@
 {
+	"app": {
+		"title": "Gestion"
+	},
 	"label": {
 		"connection": "Connexion",
 		"logout": "Déconnexion",

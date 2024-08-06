@@ -1,4 +1,7 @@
 {
+	"app": {
+		"title": "ERP"
+	},
 	"label": {
 		"connection": "Connection",
 		"logout": "Logout",
