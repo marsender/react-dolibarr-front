@@ -12,6 +12,8 @@ export default defineConfig({
 	plugins: [react()],
 	define: {
 		'process.env.SITE_URL': `"${process.env.SITE_URL}"`,
+		'process.env.LOCALE': `"${process.env.LOCALE}"`,
+		'process.env.CURRENCY': `"${process.env.CURRENCY}"`,
 	},
 	server: {
 		host: host,
