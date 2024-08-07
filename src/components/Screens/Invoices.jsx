@@ -1,31 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import axios from 'axios'
-import { Invoice } from '../../models/Invoice'
+import api from '../../services/apiService'
 
 const Invoices = () => {
 	const { t } = useTranslation()
 	const [invoices, setInvoices] = useState([])
 
-	const getInvoices = () => {
-		// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
-		const date = new Date() // Get the current date
-		const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
-		const sqlFilter = "(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
-		axios
-			.get('/invoices?sortfield=t.rowid&sortorder=DESC&sqlfilters=' + sqlFilter)
-			.then((response) => {
-				const items = response.data.map((item) => new Invoice(item))
-				setInvoices(items)
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	}
-
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoices.title')
-		getInvoices()
+		api.getInvoices().then((response) => {
+			setInvoices(response)
+		})
 	}, [])
 
 	return (

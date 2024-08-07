@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn } from '../../redux/reducers/authSlice'
 import { User } from '../../models/User'
-import axios from 'axios'
+import api from '../../services/apiService'
 
 const Login = () => {
 	const { t } = useTranslation()
@@ -22,7 +22,7 @@ const Login = () => {
 		const username = data.get('username')
 		const password = data.get('password')
 		try {
-			await axios
+			await api
 				.post('login', {
 					login: username,
 					password: password,
@@ -32,10 +32,10 @@ const Login = () => {
 						if (result.status === 200) {
 							console.log('Login ok with token: %s', result.data.success.token)
 							//this.context.setAuthTokens(result.data.success.token)
-							axios.defaults.headers = {
+							api.defaults.headers = {
 								DOLAPIKEY: result.data.success.token,
 							}
-							axios
+							api
 								.get('users/info')
 								.then((userInfo) => {
 									const userInfoData = userInfo.data
@@ -53,7 +53,7 @@ const Login = () => {
 									user.zip = userInfoData.zip
 									user.town = userInfoData.town
 
-									axios.get('thirdparties/' + user.entity).then((thridParty) => {
+									api.get('thirdparties/' + user.entity).then((thridParty) => {
 										const thridPartyData = thridParty.data
 										user.third_party.id = thridPartyData.id
 										user.third_party.name = thridPartyData.name
