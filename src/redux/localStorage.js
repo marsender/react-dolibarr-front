@@ -19,6 +19,7 @@ export const loadState = () => {
 		if (!loaded.authReducer) {
 			loaded.authReducer = {
 				isLoggedIn: false, // or your initial auth state
+				userToken: '',
 			}
 		}
 

@@ -7,11 +7,14 @@ import LoggedApp from './components/Screens/LoggedApp'
 import UnloggedApp from './components/Screens/UnloggedApp'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import ErrorLogger from './components/ErrorBoundary/ErrorLogger'
+import api from './services/apiService'
 
 function App() {
 	const { t } = useTranslation()
 	const logged = useSelector((state) => state.authReducer.isLoggedIn)
-	console.log('logged: %o', logged)
+	const token = useSelector((state) => state.authReducer.userToken)
+	//console.log('logged: %o - token: %o', logged, token)
+	api.setToken(token)
 
 	return (
 		<>

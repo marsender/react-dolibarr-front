@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn } from '../../redux/reducers/authSlice'
+import { setLoggedIn, setUserToken } from '../../redux/reducers/authSlice'
 import { User } from '../../models/User'
 import api from '../../services/apiService'
 
@@ -32,43 +32,44 @@ const Login = () => {
 						if (result.status === 200) {
 							console.log('Login ok with token: %s', result.data.success.token)
 							//this.context.setAuthTokens(result.data.success.token)
-							api.defaults.headers = {
-								DOLAPIKEY: result.data.success.token,
-							}
-							api
-								.get('users/info')
-								.then((userInfo) => {
-									const userInfoData = userInfo.data
-									let user = new User(result.data.success.token)
-									user.contact_id = userInfoData.contact_id
-									user.email = userInfoData.email
-									user.entity = userInfoData.entity
-									user.firstname = userInfoData.firstname
-									user.id = userInfoData.id
-									user.lastname = userInfoData.lastname
-									user.login = userInfoData.login
-									user.societe_id = userInfoData.societe_id
-									user.user_mobile = userInfoData.user_mobile
-									user.address = userInfoData.address
-									user.zip = userInfoData.zip
-									user.town = userInfoData.town
+							//api.defaults.headers = {
+							//	DOLAPIKEY: result.data.success.token,
+							//}
+							// api
+							// 	.get('users/info')
+							// 	.then((userInfo) => {
+							// 		const userInfoData = userInfo.data
+							// 		let user = new User(result.data.success.token)
+							// 		user.contact_id = userInfoData.contact_id
+							// 		user.email = userInfoData.email
+							// 		user.entity = userInfoData.entity
+							// 		user.firstname = userInfoData.firstname
+							// 		user.id = userInfoData.id
+							// 		user.lastname = userInfoData.lastname
+							// 		user.login = userInfoData.login
+							// 		user.societe_id = userInfoData.societe_id
+							// 		user.user_mobile = userInfoData.user_mobile
+							// 		user.address = userInfoData.address
+							// 		user.zip = userInfoData.zip
+							// 		user.town = userInfoData.town
 
-									api.get('thirdparties/' + user.entity).then((thridParty) => {
-										const thridPartyData = thridParty.data
-										user.third_party.id = thridPartyData.id
-										user.third_party.name = thridPartyData.name
-										user.third_party.name_alias = thridPartyData.name_alias
-										user.third_party.status = thridPartyData.status
-										user.third_party.code_client = thridPartyData.code_client
-										user.third_party.address = thridPartyData.address
-										user.third_party.zip = thridPartyData.zip
-										user.third_party.town = thridPartyData.town
-										//this.context.setUser(user)
-										//this.props.history.push(this.state.referer)
-									})
-								})
-								.catch((e) => console.log(e))
+							// 		api.get('thirdparties/' + user.entity).then((thridParty) => {
+							// 			const thridPartyData = thridParty.data
+							// 			user.third_party.id = thridPartyData.id
+							// 			user.third_party.name = thridPartyData.name
+							// 			user.third_party.name_alias = thridPartyData.name_alias
+							// 			user.third_party.status = thridPartyData.status
+							// 			user.third_party.code_client = thridPartyData.code_client
+							// 			user.third_party.address = thridPartyData.address
+							// 			user.third_party.zip = thridPartyData.zip
+							// 			user.third_party.town = thridPartyData.town
+							// 			//this.context.setUser(user)
+							// 			//this.props.history.push(this.state.referer)
+							// 		})
+							// 	})
+							// 	.catch((e) => console.log(e))
 							dispatch(setLoggedIn(true))
+							dispatch(setUserToken(result.data.success.token))
 						} else {
 							dispatch(setLoggedIn(false))
 						}
