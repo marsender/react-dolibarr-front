@@ -33,7 +33,7 @@ export const loadState = () => {
 }
 
 export const saveState = (state) => {
-	console.log('saveState: %o', state)
+	//console.log('saveState: %o', state)
 	try {
 		const stateWithCacheBusting = {
 			...state,
