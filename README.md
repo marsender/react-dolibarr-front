@@ -14,7 +14,7 @@ This project require the following to get started:
 Clone [React dolibarr front repository](https://github.com/marsender/react-dolibarr-front)
 
 ```bash
-git clone git@github.com:marsender/react-dolibarr-front.git
+git clone https://github.com/marsender/react-dolibarr-front.git
 cd react-dolibarr-front
 ```
 

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import Logout from './Logout'
 
 const LoggedHome = () => {
 	const { t } = useTranslation()
@@ -16,6 +15,7 @@ const LoggedHome = () => {
 			<ul>
 				<li>
 					<Link to="/invoices">{t('invoices.title')}</Link>
+					<Link to="/thirdparties">{t('thirdparties.title')}</Link>
 				</li>
 			</ul>
 		</>

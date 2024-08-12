@@ -63,6 +63,11 @@ const Navbar = () => {
 									{t('invoices.title')}
 								</Link>
 							</li>
+							<li>
+								<Link to="/thirdparties" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+									{t('thirdparties.title')}
+								</Link>
+							</li>
 							<li onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
 								{t('label.logout')}
 							</li>
@@ -85,6 +90,11 @@ const Navbar = () => {
 						<li>
 							<Link to="/invoices" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
 								{t('invoices.title')}
+							</Link>
+						</li>
+						<li>
+							<Link to="/thirdparties" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+								{t('thirdparties.title')}
 							</Link>
 						</li>
 					</ul>

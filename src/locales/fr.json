@@ -23,5 +23,14 @@
 	},
 	"invoices": {
 		"title": "Factures"
+	},
+	"invoice": {
+		"title": "Facture"
+	},
+	"thirdparties": {
+		"title": "Clients"
+	},
+	"thirdparty": {
+		"title": "Client"
 	}
 }

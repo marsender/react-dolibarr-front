@@ -3,7 +3,7 @@ const BREAKING_CHANGE_TIMESTAMP = 1711386827 // http://www.timestamp.fr/
 export const loadState = () => {
 	try {
 		const serializedState = localStorage.getItem('state')
-		console.log('serializedState: %o', serializedState)
+		//console.log('serializedState: %o', serializedState)
 
 		if (serializedState === null) {
 			return {}
@@ -22,8 +22,8 @@ export const loadState = () => {
 				userToken: '',
 			}
 		}
+		//console.log('loaded state: %o', loaded)
 
-		console.log('loaded state: %o', loaded)
 		const { cacheBuster, ...state } = loaded
 
 		return state

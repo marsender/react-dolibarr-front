@@ -1,6 +1,7 @@
 // src/services/apiService.js
 import axios from 'axios'
 import { Invoice } from '../models/Invoice'
+import { ThirdParty } from '../models/ThirdParty'
 
 const api = axios.create({
 	token: '',
@@ -53,6 +54,32 @@ api.getInvoice = async (id) => {
 		.get(`/invoices/${id}`)
 		.then((response) => {
 			return new Invoice(response.data)
+		})
+		.catch((error) => {
+			console.log(error)
+		})
+	return item
+}
+
+api.getThirdParties = async () => {
+	api.checkToken()
+	const items = await api
+		.get('/thirdparties?sortfield=t.rowid&sortorder=DESC')
+		.then((response) => {
+			return response.data.map((item) => new ThirdParty(item))
+		})
+		.catch((error) => {
+			console.log(error)
+		})
+	return items
+}
+
+api.getThirdParty = async (id) => {
+	api.checkToken()
+	const item = await api
+		.get(`/thirdparties/${id}`)
+		.then((response) => {
+			return new ThirdParty(response.data)
 		})
 		.catch((error) => {
 			console.log(error)
