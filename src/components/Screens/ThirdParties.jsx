@@ -20,7 +20,7 @@ const ThirdParties = () => {
 			<ul>
 				{thirdParties.map((item) => (
 					<li key={item.id}>
-						<Link to={item.url}>CODE: {item.code_client}</Link>
+						<Link to={item.url}>{item.name}</Link>
 					</li>
 				))}
 			</ul>

@@ -20,7 +20,9 @@ const Invoices = () => {
 			<ul>
 				{invoices.map((item) => (
 					<li key={item.id}>
-						<Link to={item.url}>REF: {item.ref}</Link> - {item.dateValidation} - Total HT: {item.totalHt} - Total TTC: {item.totalTtc}
+						<Link to={item.url}>
+							{item.ref} - {item.dateValidation} - Total {item.totalTtc} TTC
+						</Link>
 					</li>
 				))}
 			</ul>

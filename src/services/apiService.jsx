@@ -88,7 +88,7 @@ api.getInvoice = async (id) => {
 api.getThirdParties = async () => {
 	api.checkToken()
 	const items = await api
-		.get('/thirdparties?sortfield=t.rowid&sortorder=DESC')
+		.get('/thirdparties?sortfield=t.nom&sortorder=ASC')
 		.then((response) => {
 			return response.data.map((item) => new ThirdParty(item))
 		})
