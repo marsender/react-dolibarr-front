@@ -28,8 +28,6 @@ Adjust env file
 
 ```bash
 nano .env
-SITE_URL=http://react-dolibarr-front.localhost:9011/
-API_URL=http://opale.localhost/dolibarr/api/index.php/
 ```
 
 ## Build for dev
