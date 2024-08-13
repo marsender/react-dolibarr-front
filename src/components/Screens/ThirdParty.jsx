@@ -19,10 +19,12 @@ const ThirdParty = () => {
 	return (
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
-				{t('thirdparty.title')} {thirdParty.code_client}
+				{t('thirdparty.title')} - {thirdParty.name}
 			</h1>
 			<div className="flex flex-wrap">
-				<h1 className="flex-auto text-lg font-semibold">{thirdParty.name}</h1>
+				{/* <div className="w-full flex-none text-sm font-medium text-slate-700 mt-2">{thirdParty.code_client}</div> */}
+				<h1 className="flex-auto text-lg font-semibold">{thirdParty.email}</h1>
+				<div className="text-lg font-semibold text-slate-500">{thirdParty.phone}</div>
 			</div>
 		</>
 	)
