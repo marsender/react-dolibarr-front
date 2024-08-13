@@ -4,8 +4,8 @@ import dotenv from 'dotenv'
 
 dotenv.config() // load env vars from .env
 
-let host = new URL(process.env.SITE_URL).host.split(':')[0]
-let port = new URL(process.env.SITE_URL).port
+let host = new URL(process.env.LOCAL_URL).host.split(':')[0]
+let port = new URL(process.env.LOCAL_URL).port
 
 // https://vitejs.dev/config/
 export default defineConfig({
