@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn, setUserToken } from '../../redux/reducers/authSlice'
-import { User } from '../../models/User'
 import api from '../../services/apiService'
 
 const Login = () => {
@@ -22,27 +21,16 @@ const Login = () => {
 		const username = data.get('username')
 		const password = data.get('password')
 		try {
-			await api
-				.post('login', {
-					login: username,
-					password: password,
-				})
-				.then(
-					(result) => {
-						if (result.status === 200) {
-							//console.log('Login ok with token: %s', result.data.success.token)
-							dispatch(setLoggedIn(true))
-							dispatch(setUserToken(result.data.success.token))
-						} else {
-							dispatch(setLoggedIn(false))
-						}
-					},
-					(error) => {
-						setError(t('login.error'))
-						console.log('Login error: %o', error)
-					}
-				)
-			navigate('/')
+			api.login(username, password).then((token) => {
+				if (token.length) {
+					//console.log('Login ok with token: %s', token)
+					dispatch(setLoggedIn(true))
+					dispatch(setUserToken(token))
+					navigate('/')
+				} else {
+					dispatch(setLoggedIn(false))
+				}
+			})
 		} catch (err) {
 			setError(t('login.error'))
 			console.log('Login exception: %o', err)

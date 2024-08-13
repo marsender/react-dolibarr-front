@@ -26,6 +26,28 @@ api.checkToken = () => {
 	}
 }
 
+api.login = async (username, password) => {
+	const token = await api
+		.post('login', {
+			login: username,
+			password: password,
+		})
+		.then(
+			(result) => {
+				if (result.status === 200) {
+					//console.log('Login ok with token: %s', result.data.success.token)
+					return result.data.success.token
+				} else {
+					return ''
+				}
+			},
+			(error) => {
+				throw new Error(`Login error: ${error}`)
+			}
+		)
+	return token
+}
+
 api.getInvoices = async () => {
 	api.checkToken()
 	// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
