@@ -13,9 +13,11 @@ const api = axios.create({
 	},
 })
 
-api.defaults.withCredentials = true
+// Api base url is SITE_URL/api to avoid CORS errors
+// and the server proxy will redirect to API_URL target
 api.defaults.https = process.env.SITE_URL.search('https') > -1
 api.defaults.baseURL = process.env.SITE_URL + 'api/'
+api.defaults.withCredentials = true
 
 api.setToken = (token) => {
 	api.token = token
