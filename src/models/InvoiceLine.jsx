@@ -1,6 +1,4 @@
-import { InvoiceLine } from './InvoiceLine'
-
-export class Invoice {
+export class InvoiceLine {
 	constructor(props) {
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
 		const numberFormatter = new Intl.NumberFormat(process.env.LOCALE, {
@@ -9,12 +7,14 @@ export class Invoice {
 			maximumFractionDigits: 2,
 		})
 		this.id = props.id
-		this.ref = props.ref
-		this.url = `/invoice/${props.id}`
-		const dateValidation = new Date(props.date_validation * 1000)
-		this.dateValidation = dateValidation.toLocaleDateString(process.env.LOCALE) // en-US
+		this.desc = props.desc
+		this.qty = props.qty
+		this.duree = props.duree
+		this.remise_percent = props.remise_percent
+		this.subprice = numberFormatter.format(props.subprice) + ' ' + process.env.CURRENCY
 		this.totalHt = numberFormatter.format(props.total_ht) + ' ' + process.env.CURRENCY
+		this.totalTva = numberFormatter.format(props.total_tva) + ' ' + process.env.CURRENCY
 		this.totalTtc = numberFormatter.format(props.total_ttc) + ' ' + process.env.CURRENCY
-		this.lines = props.lines.map((item) => new InvoiceLine(item))
+		this.tvaTx = props.tva_tx
 	}
 }
