@@ -1,3 +1,5 @@
+import he from 'he'
+
 export class InvoiceLine {
 	constructor(props) {
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
@@ -7,7 +9,7 @@ export class InvoiceLine {
 			maximumFractionDigits: 2,
 		})
 		this.id = props.id
-		this.desc = props.desc
+		this.desc = he.decode(props.desc)
 		this.qty = props.qty
 		this.duree = props.duree
 		this.remise_percent = props.remise_percent
