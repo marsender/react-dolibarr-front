@@ -19,7 +19,7 @@ const Invoice = () => {
 	return (
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
-				{t('invoice.title')} - {invoice.thirdParty.name}
+				{t('invoice.title')} - {invoice.thirdPartyName}
 			</h1>
 			<div className="flex flex-wrap text-lg">
 				<h1 className="flex-auto text-lg font-semibold">

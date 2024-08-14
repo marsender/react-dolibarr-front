@@ -23,7 +23,7 @@ const Invoices = () => {
 						<div className="flex">
 							<div className="flex-1">
 								<Link to={item.url}>
-									{item.ref} - {item.thirdParty.name}
+									{item.ref} - {item.thirdPartyName}
 								</Link>
 							</div>
 							<div className="text-sm text-gray-900 dark:text-white">{item.dateValidation}</div>
