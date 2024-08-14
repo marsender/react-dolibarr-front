@@ -10,11 +10,20 @@ export class Invoice {
 		})
 		this.id = props.id
 		this.ref = props.ref
+		this.socid = props.socid
+		this.thirdParty = null
 		this.url = `/invoice/${props.id}`
 		const dateValidation = new Date(props.date_validation * 1000)
 		this.dateValidation = dateValidation.toLocaleDateString(process.env.LOCALE) // en-US
 		this.totalHt = numberFormatter.format(props.total_ht) + ' ' + process.env.CURRENCY
 		this.totalTtc = numberFormatter.format(props.total_ttc) + ' ' + process.env.CURRENCY
 		this.lines = props.lines.map((item) => new InvoiceLine(item))
+	}
+	setThirdParty(thirdParty) {
+		this.thirdParty = thirdParty
+	}
+	// List of properties to fetch
+	static getApiProperties() {
+		return 'id,ref,socid,date_validation,total_ht,total_ttc,lines'
 	}
 }

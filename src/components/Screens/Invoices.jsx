@@ -22,12 +22,14 @@ const Invoices = () => {
 					<li key={item.id} className="py-3 sm:py-4">
 						<div className="flex">
 							<div className="flex-1">
-								<Link to={item.url}>{item.ref}</Link>
+								<Link to={item.url}>
+									{item.ref} - {item.thirdParty.name}
+								</Link>
 							</div>
 							<div className="text-sm text-gray-900 dark:text-white">{item.dateValidation}</div>
 						</div>
-						{item.lines.map((line) => (
-							<div className="flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
+						{item.lines.map((line, index) => (
+							<div key={index} className="flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
 								<div className="flex-1">{line.desc}</div>
 								<div className="inline-flex">{line.totalTtc}</div>
 							</div>

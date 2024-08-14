@@ -11,4 +11,8 @@ export class ThirdParty {
 		this.email = props.email
 		this.phone = props.phone
 	}
+	// List of properties to fetch
+	static getApiProperties() {
+		return 'id,name,address,zip,town,status,code_client,email,phone'
+	}
 }

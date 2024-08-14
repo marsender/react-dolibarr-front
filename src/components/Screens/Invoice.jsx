@@ -19,11 +19,13 @@ const Invoice = () => {
 	return (
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
-				{t('invoice.title')} - {invoice.ref}
+				{t('invoice.title')} - {invoice.thirdParty.name}
 			</h1>
-			<div className="flex flex-wrap">
-				<h1 className="flex-auto text-lg font-semibold">{invoice.dateValidation}</h1>
-				<div className="text-lg font-semibold text-slate-500">{invoice.totalTtc} TTC</div>
+			<div className="flex flex-wrap text-lg">
+				<h1 className="flex-auto text-lg font-semibold">
+					{invoice.dateValidation} <span className="font-semibold text-slate-500">{invoice.ref}</span>
+				</h1>
+				<div className="font-semibold text-slate-500">{invoice.totalTtc} TTC</div>
 			</div>
 		</>
 	)

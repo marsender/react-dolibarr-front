@@ -56,19 +56,27 @@ api.getInvoices = async () => {
 	const date = new Date() // Get the current date
 	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
 	const sqlFilter = "(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
+	const properties = Invoice.getApiProperties()
 	// function sleep(ms) {
 	// 	return new Promise((resolve) => setTimeout(resolve, ms))
 	// }
 	// Waits for debug
 	// await sleep(3000)
 	const items = await api
-		.get('/invoices?sortfield=t.rowid&sortorder=DESC&sqlfilters=' + sqlFilter)
+		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + '&sqlfilters=' + sqlFilter + '&properties=' + properties)
 		.then((response) => {
 			return response.data.map((item) => new Invoice(item))
 		})
 		.catch((error) => {
 			console.log(error)
 		})
+	// Fetch third party for each invoice
+	await Promise.all(
+		items.map(async (item) => {
+			const thirdParty = await api.getThirdParty(item.socid)
+			item.setThirdParty(thirdParty)
+		})
+	)
 	return items
 }
 
@@ -77,18 +85,22 @@ api.getInvoice = async (id) => {
 	const item = await api
 		.get(`/invoices/${id}`)
 		.then((response) => {
-			return new Invoice(response.data)
+			let item = new Invoice(response.data)
+			return item
 		})
 		.catch((error) => {
 			console.log(error)
 		})
+	const thirdParty = await api.getThirdParty(item.socid)
+	item.setThirdParty(thirdParty)
 	return item
 }
 
 api.getThirdParties = async () => {
 	api.checkToken()
+	const properties = ThirdParty.getApiProperties()
 	const items = await api
-		.get('/thirdparties?sortfield=t.nom&sortorder=ASC')
+		.get('/thirdparties?sortfield=t.nom&sortorder=ASC' + '&properties=' + properties)
 		.then((response) => {
 			return response.data.map((item) => new ThirdParty(item))
 		})
