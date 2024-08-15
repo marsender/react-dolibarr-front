@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import api from '../../services/apiService'
+import api from '../services/apiService'
 
 const ThirdParties = () => {
 	const { t } = useTranslation()

@@ -1,7 +1,7 @@
 // src/services/apiService.js
 import axios from 'axios'
-import { Invoice } from '../models/Invoice'
-import { ThirdParty } from '../models/ThirdParty'
+import { Invoice } from '../entities/Invoice'
+import { ThirdParty } from '../entities/ThirdParty'
 
 const api = axios.create({
 	token: '',

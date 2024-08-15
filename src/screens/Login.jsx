@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn, setUserToken } from '../../redux/reducers/authSlice'
-import api from '../../services/apiService'
+import { setLoggedIn, setUserToken } from '../redux/reducers/authSlice'
+import api from '../services/apiService'
 
 const Login = () => {
 	const { t } = useTranslation()

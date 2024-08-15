@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn } from '../../redux/reducers/authSlice'
+import { setLoggedIn } from '../redux/reducers/authSlice'
 
 const Logout = () => {
 	const { t } = useTranslation()

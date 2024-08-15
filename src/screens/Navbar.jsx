@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn } from '../../redux/reducers/authSlice'
+import { setLoggedIn } from '../redux/reducers/authSlice'
 import logo from '/vite.svg'
 import profilePicture from '/profile-picture.jpg'
 
