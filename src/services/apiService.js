@@ -24,7 +24,7 @@ api.setToken = (token) => {
 }
 api.checkToken = () => {
 	if (api.token === '') {
-		throw new Error('Api token is not set')
+		console.log('Api token is not set')
 	}
 }
 
