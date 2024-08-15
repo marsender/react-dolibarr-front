@@ -22,11 +22,8 @@ api.defaults.withCredentials = true
 api.setToken = (token) => {
 	api.token = token
 }
-api.checkToken = () => {
-	if (api.token === '') {
-		console.log('Api token is not set')
-	}
-}
+
+api.validToken = () => (api.token === '' ? false : true)
 
 api.login = async (username, password) => {
 	const token = await api
@@ -51,7 +48,9 @@ api.login = async (username, password) => {
 }
 
 api.getInvoices = async () => {
-	api.checkToken()
+	if (!api.validToken()) {
+		return []
+	}
 	// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
 	const date = new Date() // Get the current date
 	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
@@ -81,7 +80,9 @@ api.getInvoices = async () => {
 }
 
 api.getInvoice = async (id) => {
-	api.checkToken()
+	if (!api.validToken()) {
+		throw new Error('Invoice: missing api token')
+	}
 	const item = await api
 		.get(`/invoices/${id}`)
 		.then((response) => {
@@ -97,7 +98,9 @@ api.getInvoice = async (id) => {
 }
 
 api.getThirdParties = async () => {
-	api.checkToken()
+	if (!api.validToken()) {
+		return []
+	}
 	const properties = ThirdParty.getApiProperties()
 	const items = await api
 		.get('/thirdparties?sortfield=t.nom&sortorder=ASC' + '&properties=' + properties)
@@ -111,7 +114,9 @@ api.getThirdParties = async () => {
 }
 
 api.getThirdParty = async (id) => {
-	api.checkToken()
+	if (!api.validToken()) {
+		throw new Error('ThirdParty: missing api token')
+	}
 	const item = await api
 		.get(`/thirdparties/${id}`)
 		.then((response) => {
