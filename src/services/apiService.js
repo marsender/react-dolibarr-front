@@ -41,7 +41,7 @@ api.login = async (username, password) => {
 				}
 			},
 			(error) => {
-				throw new Error(`Login error: ${error}`)
+				throw new Error(`Axios Login error: ${error}`)
 			}
 		)
 	return token
@@ -68,12 +68,15 @@ api.getInvoices = async () => {
 		})
 		.catch((error) => {
 			console.log('Axios error %s: %s', error.code, error.message)
+			return []
 		})
 	// Fetch third party for each invoice
 	await Promise.all(
 		items.map(async (item) => {
 			const thirdParty = await api.getThirdParty(item.socid)
-			item.setThirdParty(thirdParty)
+			if (thirdParty) {
+				item.setThirdParty(thirdParty)
+			}
 		})
 	)
 	return items
@@ -81,7 +84,7 @@ api.getInvoices = async () => {
 
 api.getInvoice = async (id) => {
 	if (!api.validToken()) {
-		throw new Error('Invoice: missing api token')
+		throw new Error('Axios Invoice: missing api token')
 	}
 	const item = await api
 		.get(`/invoices/${id}`)
@@ -90,10 +93,17 @@ api.getInvoice = async (id) => {
 			return item
 		})
 		.catch((error) => {
-			console.log('Axios error %s: %s', error.code, error.message)
+			console.log('Axios Invoice error %s: %s', error.code, error.message)
+			//throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)
+			return null
 		})
+	if (!item) {
+		return null
+	}
 	const thirdParty = await api.getThirdParty(item.socid)
-	item.setThirdParty(thirdParty)
+	if (thirdParty) {
+		item.setThirdParty(thirdParty)
+	}
 	return item
 }
 
@@ -109,6 +119,7 @@ api.getThirdParties = async () => {
 		})
 		.catch((error) => {
 			console.log('Axios error %s: %s', error.code, error.message)
+			return []
 		})
 	return items
 }
@@ -123,7 +134,9 @@ api.getThirdParty = async (id) => {
 			return new ThirdParty(response.data)
 		})
 		.catch((error) => {
-			console.log('Axios error %s: %s', error.code, error.message)
+			console.log('Axios ThirdParty error %s: %s', error.code, error.message)
+			//throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)
+			return null
 		})
 	return item
 }

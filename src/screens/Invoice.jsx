@@ -13,7 +13,9 @@ const Invoice = () => {
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoice.title')
 		api.getInvoice(id).then((response) => {
-			setInvoice(response)
+			if (response) {
+				setInvoice(response)
+			}
 		})
 	})
 

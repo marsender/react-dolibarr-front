@@ -13,7 +13,9 @@ const ThirdParty = () => {
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparty.title')
 		api.getThirdParty(id).then((response) => {
-			setThirdParty(response)
+			if (response) {
+				setThirdParty(response)
+			}
 		})
 	})
 
