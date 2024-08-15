@@ -67,7 +67,10 @@ api.getInvoices = async () => {
 			return response.data.map((item) => new Invoice(item))
 		})
 		.catch((error) => {
-			console.log('Axios error %s: %s', error.code, error.message)
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios Invoices error %s: %s', error.code, error.message)
+				throw new Error(`Axios Invoices error ${error.code}: ${error.message}`)
+			}
 			return []
 		})
 	// Fetch third party for each invoice
@@ -93,8 +96,10 @@ api.getInvoice = async (id) => {
 			return item
 		})
 		.catch((error) => {
-			console.log('Axios Invoice error %s: %s', error.code, error.message)
-			//throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios Invoice error %s: %s', error.code, error.message)
+				throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)
+			}
 			return null
 		})
 	if (!item) {
@@ -118,7 +123,10 @@ api.getThirdParties = async () => {
 			return response.data.map((item) => new ThirdParty(item))
 		})
 		.catch((error) => {
-			console.log('Axios error %s: %s', error.code, error.message)
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios ThirdParties error %s: %s', error.code, error.message)
+				throw new Error(`Axios ThirdParties error ${error.code}: ${error.message}`)
+			}
 			return []
 		})
 	return items
@@ -134,8 +142,10 @@ api.getThirdParty = async (id) => {
 			return new ThirdParty(response.data)
 		})
 		.catch((error) => {
-			console.log('Axios ThirdParty error %s: %s', error.code, error.message)
-			//throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios ThirdParty error %s: %s', error.code, error.message)
+				throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)
+			}
 			return null
 		})
 	return item
