@@ -18,11 +18,15 @@ const ThirdParties = () => {
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">{t('thirdparties.title')}</h1>
 			<ul className="divide-y divide-gray-200 dark:divide-gray-700">
-				{thirdParties.map((item) => (
-					<li key={item.id} className="py-2 sm:py-2">
-						{ThirdPartyComponent(item, { detail: false })}
-					</li>
-				))}
+				{thirdParties ? (
+					thirdParties.map((item) => (
+						<li key={item.id} className="py-2 sm:py-2">
+							{ThirdPartyComponent(item, { detail: false })}
+						</li>
+					))
+				) : (
+					<p>{t('label.loading')}</p>
+				)}
 			</ul>
 		</>
 	)

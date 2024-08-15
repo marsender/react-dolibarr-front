@@ -8,8 +8,7 @@
 		"username": "Utilisateur",
 		"password": "Mot de passe",
 		"cancel": "Annuler",
-		"increment": "Incrémenter",
-		"decrement": "Décrémenter"
+		"loading": "Chargement"
 	},
 	"home": {
 		"title": "Accueil"

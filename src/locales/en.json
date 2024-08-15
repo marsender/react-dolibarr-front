@@ -8,8 +8,7 @@
 		"username": "Username",
 		"password": "Password",
 		"cancel": "Cancel",
-		"increment": "Increment",
-		"decrement": "Decrement"
+		"loading": "Loading"
 	},
 	"home": {
 		"title": "Home"

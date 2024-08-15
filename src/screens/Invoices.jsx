@@ -18,11 +18,15 @@ const Invoices = () => {
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">{t('invoices.title')}</h1>
 			<ul className="divide-y divide-gray-200 dark:divide-gray-700">
-				{invoices.map((item) => (
-					<li key={item.id} className="py-3 sm:py-4">
-						{InvoiceComponent(item, { detail: false })}
-					</li>
-				))}
+				{invoices ? (
+					invoices.map((item) => (
+						<li key={item.id} className="py-3 sm:py-4">
+							{InvoiceComponent(item, { detail: false })}
+						</li>
+					))
+				) : (
+					<p>{t('label.loading')}</p>
+				)}
 			</ul>
 		</>
 	)
