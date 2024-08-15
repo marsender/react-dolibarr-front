@@ -24,7 +24,9 @@ export const loadState = () => {
 		}
 		//console.log('loaded state: %o', loaded)
 
-		const { cacheBuster, ...state } = loaded
+		// const { cacheBuster, ...state } = loaded;
+		const state = { ...loaded }
+		delete state.cacheBuster
 
 		return state
 	} catch (err) {

@@ -7,7 +7,7 @@ const LoggedHome = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('home.title')
-	}, [])
+	})
 
 	return (
 		<>

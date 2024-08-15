@@ -13,7 +13,7 @@ const Login = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('login.title')
-	}, [])
+	})
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

@@ -15,7 +15,7 @@ const Invoice = () => {
 		api.getInvoice(id).then((response) => {
 			setInvoice(response)
 		})
-	}, [])
+	})
 
 	return (
 		<>

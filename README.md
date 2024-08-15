@@ -46,3 +46,9 @@ npm run preview
 ```
 
 Open the app in your browser http://react-dolibarr-front.localhost:4174/
+
+## Lint code
+
+```bash
+npm run lint
+```

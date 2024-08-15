@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useErrorBoundary } from './ErrorBoundaryContext'
+import { useEffect } from 'react'
+import { UseErrorBoundary } from './UseErrorBoundary'
 
 const ErrorLogger = () => {
-	const { error } = useErrorBoundary()
+	const { error } = UseErrorBoundary()
 
 	useEffect(() => {
 		if (error) {

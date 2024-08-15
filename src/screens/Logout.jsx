@@ -8,7 +8,7 @@ const Logout = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	const handleLogout = async (e) => {
+	const handleLogout = async () => {
 		try {
 			dispatch(setLoggedIn(false))
 			navigate('/')

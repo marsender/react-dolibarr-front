@@ -1,10 +1,7 @@
-import React, { createContext, useContext, useState } from 'react'
+import { createContext, useState } from 'react'
+import PropTypes from 'prop-types'
 
-const ErrorBoundaryContext = createContext()
-
-export const useErrorBoundary = () => {
-	return useContext(ErrorBoundaryContext)
-}
+export const ErrorBoundaryContext = createContext()
 
 export const ErrorBoundaryProvider = ({ children }) => {
 	const [hasError, setHasError] = useState(false)
@@ -18,4 +15,8 @@ export const ErrorBoundaryProvider = ({ children }) => {
 	}
 
 	return <ErrorBoundaryContext.Provider value={value}>{children}</ErrorBoundaryContext.Provider>
+}
+
+ErrorBoundaryProvider.propTypes = {
+	children: PropTypes.node,
 }

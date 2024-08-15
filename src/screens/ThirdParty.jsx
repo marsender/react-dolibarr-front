@@ -15,7 +15,7 @@ const ThirdParty = () => {
 		api.getThirdParty(id).then((response) => {
 			setThirdParty(response)
 		})
-	}, [])
+	})
 
 	return (
 		<>

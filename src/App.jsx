@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 import './App.css'
 import Loading from './screens/Loading'
 import LoggedApp from './screens/LoggedApp'
@@ -10,7 +9,6 @@ import ErrorLogger from './components/error/ErrorLogger'
 import api from './services/apiService'
 
 function App() {
-	const { t } = useTranslation()
 	const logged = useSelector((state) => state.authReducer.isLoggedIn)
 	const token = useSelector((state) => state.authReducer.userToken)
 	//console.log('logged: %o - token: %o', logged, token)
