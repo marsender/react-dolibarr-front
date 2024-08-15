@@ -22,7 +22,7 @@ const Invoice = () => {
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
 				{t('invoice.title')} - {invoice.thirdPartyName}
 			</h1>
-			{InvoiceComponent(invoice, { displayLines: true })}
+			{InvoiceComponent(invoice, { detail: true })}
 		</>
 	)
 }

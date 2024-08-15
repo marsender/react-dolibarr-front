@@ -20,7 +20,7 @@ const Invoices = () => {
 			<ul className="divide-y divide-gray-200 dark:divide-gray-700">
 				{invoices.map((item) => (
 					<li key={item.id} className="py-3 sm:py-4">
-						{InvoiceComponent(item, { displayLines: false })}
+						{InvoiceComponent(item, { detail: false })}
 					</li>
 				))}
 			</ul>
