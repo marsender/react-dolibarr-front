@@ -6,7 +6,7 @@ const UnloggedHome = () => {
 	const { t } = useTranslation()
 
 	useEffect(() => {
-		document.title = t('app.title') + ' - ' + t('logout.title')
+		document.title = t('app.title')
 	}, [])
 
 	return (
