@@ -52,3 +52,9 @@ Open the app in your browser http://react-dolibarr-front.localhost:4174/
 ```bash
 npm run lint
 ```
+
+## Run unit tests
+
+```bash
+npm run test
+```

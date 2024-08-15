@@ -15,4 +15,17 @@ export class ThirdParty {
 	static getApiProperties() {
 		return 'id,name,address,zip,town,status,code_client,email,phone'
 	}
+	static getTestSample() {
+		return {
+			id: 1,
+			name: 'Third pary name',
+			address: 'My address',
+			zip: 'My zip',
+			town: 'My town',
+			status: 'My status',
+			code_client: 'CUS_0001',
+			email: 'bip@test.com',
+			phone: '0669016901',
+		}
+	}
 }
