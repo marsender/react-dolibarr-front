@@ -67,7 +67,7 @@ api.getInvoices = async () => {
 			return response.data.map((item) => new Invoice(item))
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log('Axios error %s: %s', error.code, error.message)
 		})
 	// Fetch third party for each invoice
 	await Promise.all(
@@ -90,7 +90,7 @@ api.getInvoice = async (id) => {
 			return item
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log('Axios error %s: %s', error.code, error.message)
 		})
 	const thirdParty = await api.getThirdParty(item.socid)
 	item.setThirdParty(thirdParty)
@@ -108,7 +108,7 @@ api.getThirdParties = async () => {
 			return response.data.map((item) => new ThirdParty(item))
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log('Axios error %s: %s', error.code, error.message)
 		})
 	return items
 }
@@ -123,7 +123,7 @@ api.getThirdParty = async (id) => {
 			return new ThirdParty(response.data)
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log('Axios error %s: %s', error.code, error.message)
 		})
 	return item
 }
