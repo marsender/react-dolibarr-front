@@ -37,5 +37,8 @@
 		"name": "Name",
 		"email": "Email",
 		"phone": "Phone"
+	},
+	"error": {
+		"empty-fields": "Fields not filled in"
 	}
 }

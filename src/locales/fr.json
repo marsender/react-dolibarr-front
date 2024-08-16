@@ -37,5 +37,8 @@
 		"name": "Nom",
 		"email": "Email",
 		"phone": "Téléphone"
+	},
+	"error": {
+		"empty-fields": "Champs non renseignés"
 	}
 }

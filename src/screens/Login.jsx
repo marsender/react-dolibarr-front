@@ -8,7 +8,7 @@ import api from '../services/apiService'
 
 const Login = () => {
 	const { t } = useTranslation()
-	const [error, setError] = React.useState(false)
+	const [error, setError] = React.useState('')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 

@@ -27,7 +27,7 @@ api.validToken = () => (api.token === '' ? false : true)
 
 api.login = async (username, password) => {
 	const token = await api
-		.post('login', {
+		.post('/login', {
 			login: username,
 			password: password,
 		})
@@ -151,7 +151,33 @@ api.getThirdParty = async (id) => {
 	return item
 }
 
-// Example of adding an interceptor
+api.createThirdParty = async (name, email, phone) => {
+	if (name === '' || email === '') {
+		return { error: 'error.empty-fields' }
+	}
+	const id = await api
+		.post('/thirdparties', {
+			name: name,
+			email: email,
+			phone: phone,
+		})
+		.then(
+			(result) => {
+				if (result.status === 200) {
+					//console.log('ThirdParty created: %s', result.data)
+					return result.data
+				} else {
+					return ''
+				}
+			},
+			(error) => {
+				throw new Error(`Axios create ThirdParty error: ${error}`)
+			}
+		)
+	return id
+}
+
+// Add interceptor to set dynamic header
 api.interceptors.request.use(
 	(config) => {
 		// Modify config if needed, e.g., add authorization token
