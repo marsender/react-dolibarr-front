@@ -8,7 +8,8 @@
 		"username": "Username",
 		"password": "Password",
 		"cancel": "Cancel",
-		"loading": "Loading"
+		"loading": "Loading",
+		"add": "Add"
 	},
 	"home": {
 		"title": "Home"
@@ -24,12 +25,17 @@
 		"title": "Invoices"
 	},
 	"invoice": {
-		"title": "Invoice"
+		"title": "Invoice",
+		"create": "New invoice"
 	},
 	"thirdparties": {
 		"title": "Third parties"
 	},
 	"thirdparty": {
-		"title": "Third party"
+		"title": "Third party",
+		"create": "New third party",
+		"name": "Name",
+		"email": "Email",
+		"phone": "Phone"
 	}
 }

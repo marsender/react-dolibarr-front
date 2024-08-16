@@ -8,7 +8,8 @@
 		"username": "Utilisateur",
 		"password": "Mot de passe",
 		"cancel": "Annuler",
-		"loading": "Chargement"
+		"loading": "Chargement",
+		"add": "Ajouter"
 	},
 	"home": {
 		"title": "Accueil"
@@ -24,12 +25,17 @@
 		"title": "Factures"
 	},
 	"invoice": {
-		"title": "Facture"
+		"title": "Facture",
+		"create": "Nouvelle facture"
 	},
 	"thirdparties": {
 		"title": "Clients"
 	},
 	"thirdparty": {
-		"title": "Client"
+		"title": "Client",
+		"create": "Nouveau client",
+		"name": "Nom",
+		"email": "Email",
+		"phone": "Téléphone"
 	}
 }
