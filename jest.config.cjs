@@ -1,3 +1,4 @@
+/** @type {import('jest').Config} */
 const config = {
 	testEnvironment: 'jest-environment-jsdom',
 	transform: {
@@ -6,6 +7,9 @@ const config = {
 	moduleNameMapper: {
 		'\\.(css|less|scss|sass)$': 'identity-obj-proxy',
 	},
-	setupFilesAfterEnv: ['./jest-setup.js'],
+	// https://jestjs.io/docs/configuration#setupfilesafterenv-array
+	setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+	// https://jestjs.io/docs/configuration#setupfiles-array
+	setupFiles: ['<rootDir>/jest-env.js'],
 }
 module.exports = config
