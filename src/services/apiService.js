@@ -151,29 +151,41 @@ api.getThirdParty = async (id) => {
 	return item
 }
 
-api.createThirdParty = async (name, email, phone) => {
-	if (name === '' || email === '') {
+/**
+ * @see Dolibarr class htdocs/societe/class/societe.class.php
+ *
+ * @param {string} name
+ * @param {string} email
+ * @param {string} phone
+ * @returns
+ */
+api.createThirdParty = async (formData) => {
+	if (formData.name === '' || formData.email === '') {
 		return { error: 'error.empty-fields' }
 	}
-	const id = await api
-		.post('/thirdparties', {
-			name: name,
-			email: email,
-			phone: phone,
-		})
-		.then(
-			(result) => {
-				if (result.status === 200) {
-					//console.log('ThirdParty created: %s', result.data)
-					return result.data
-				} else {
-					return ''
-				}
-			},
-			(error) => {
-				throw new Error(`Axios create ThirdParty error: ${error}`)
+	const data = {
+		name: formData.get('name'),
+		email: formData.get('email'),
+		phone: formData.get('phone'),
+		address: formData.get('address'),
+		zip: formData.get('zip'),
+		town: formData.get('town'),
+		client: 1, // 0=no customer, 1=customer, 2=prospect, 3=customer and prospect
+		code_client: 'auto', // auto generation of code
+	}
+	const id = await api.post('/thirdparties', data).then(
+		(result) => {
+			if (result.status === 200) {
+				//console.log('ThirdParty created: %s', result.data)
+				return result.data
+			} else {
+				return ''
 			}
-		)
+		},
+		(error) => {
+			throw new Error(`Axios create ThirdParty error: ${error}`)
+		}
+	)
 	return id
 }
 

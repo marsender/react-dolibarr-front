@@ -36,7 +36,10 @@
 		"create": "New third party",
 		"name": "Name",
 		"email": "Email",
-		"phone": "Phone"
+		"phone": "Phone",
+		"address": "Address",
+		"zip": "Zip",
+		"town": "Town"
 	},
 	"error": {
 		"empty-fields": "Fields not filled in"

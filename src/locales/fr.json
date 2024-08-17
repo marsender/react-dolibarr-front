@@ -36,7 +36,10 @@
 		"create": "Nouveau client",
 		"name": "Nom",
 		"email": "Email",
-		"phone": "Téléphone"
+		"phone": "Téléphone",
+		"address": "Adresse",
+		"zip": "Code postal",
+		"town": "Vile"
 	},
 	"error": {
 		"empty-fields": "Champs non renseignés"
