@@ -15,21 +15,23 @@ const ThirdPartyForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		let thirdPartyId = 0
 		const formData = new FormData(e.target)
+		// Create third party
 		try {
 			await api.createThirdParty(formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
 				}
-				//console.log('Create thirdparty with id: %s', data)
-				navigate('/thirdparties')
+				thirdPartyId = parseInt(data)
 			})
 		} catch (err) {
 			setError(t('thirdparty.error'))
 			console.log('ThirdParty create exception: %o', err)
 			return
 		}
+		navigate(`/thirdparty/${thirdPartyId}`)
 	}
 
 	return (

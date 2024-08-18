@@ -64,6 +64,10 @@ api.getInvoices = async () => {
 	const items = await api
 		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + '&sqlfilters=' + sqlFilter + '&properties=' + properties)
 		.then((response) => {
+			if (!Array.isArray(response.data)) {
+				console.log('Axios Invoices incorrect response: %o', response)
+				return []
+			}
 			return response.data.map((item) => new Invoice(item))
 		})
 		.catch((error) => {
@@ -120,6 +124,10 @@ api.getThirdParties = async () => {
 	const items = await api
 		.get('/thirdparties?sortfield=t.nom&sortorder=ASC' + '&properties=' + properties)
 		.then((response) => {
+			if (!Array.isArray(response.data)) {
+				console.log('Axios ThirdParties incorrect response: %o', response)
+				return []
+			}
 			return response.data.map((item) => new ThirdParty(item))
 		})
 		.catch((error) => {
@@ -225,7 +233,6 @@ api.addInvoiceLine = async (invoiceId, formData) => {
 	if (!desc || desc === '' || !subprice || subprice === '' || subprice === '0') {
 		return { error: 'error.empty-fields' }
 	}
-	console.log('Sub: %o', subprice)
 	// Set default values
 	if (!qty || qty === '' || qty === 0) {
 		qty = 1

@@ -35,20 +35,21 @@ const InvoiceForm = () => {
 			setError(t('error.incorrect-fields'))
 			return
 		}
+		// Create invoice
 		try {
 			await api.createInvoice(formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
 				}
-				invoiceId = data
+				invoiceId = parseInt(data)
 			})
 		} catch (err) {
 			setError(t('invoice.error'))
 			console.log('Invoice create exception: %o', err)
 			return
 		}
-		// Add lines
+		// Add invoice lines
 		try {
 			await api.addInvoiceLine(invoiceId, formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
