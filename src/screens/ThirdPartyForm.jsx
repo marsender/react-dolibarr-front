@@ -17,7 +17,7 @@ const ThirdPartyForm = () => {
 		e.preventDefault()
 		const formData = new FormData(e.target)
 		try {
-			api.createThirdParty(formData).then((data) => {
+			await api.createThirdParty(formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
@@ -28,6 +28,7 @@ const ThirdPartyForm = () => {
 		} catch (err) {
 			setError(t('thirdparty.error'))
 			console.log('ThirdParty create exception: %o', err)
+			return
 		}
 	}
 

@@ -28,6 +28,13 @@
 		"title": "Invoice",
 		"create": "New invoice"
 	},
+	"invoiceline": {
+		"desc": "Description",
+		"subprice": "Unit price excluding VAT",
+		"qty": "Quantity",
+		"tva_tx": "VAT",
+		"remise_percent": "Reduction (%)"
+	},
 	"thirdparties": {
 		"title": "Third parties"
 	},
@@ -39,9 +46,11 @@
 		"phone": "Phone",
 		"address": "Address",
 		"zip": "Zip",
-		"town": "Town"
+		"town": "Town",
+		"select": "Select a third party"
 	},
 	"error": {
-		"empty-fields": "Fields not filled in"
+		"empty-fields": "Fields not filled in",
+		"incorrect-fields": "Incorrect fields"
 	}
 }

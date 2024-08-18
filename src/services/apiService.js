@@ -153,19 +153,16 @@ api.getThirdParty = async (id) => {
 
 /**
  * @see Dolibarr class htdocs/societe/class/societe.class.php
- *
- * @param {string} name
- * @param {string} email
- * @param {string} phone
- * @returns
  */
 api.createThirdParty = async (formData) => {
-	if (formData.name === '' || formData.email === '') {
+	const name = formData.get('name')
+	const email = formData.get('email')
+	if (!name || !email) {
 		return { error: 'error.empty-fields' }
 	}
 	const data = {
-		name: formData.get('name'),
-		email: formData.get('email'),
+		name: name,
+		email: email,
 		phone: formData.get('phone'),
 		address: formData.get('address'),
 		zip: formData.get('zip'),
@@ -176,14 +173,111 @@ api.createThirdParty = async (formData) => {
 	const id = await api.post('/thirdparties', data).then(
 		(result) => {
 			if (result.status === 200) {
-				//console.log('ThirdParty created: %s', result.data)
+				//console.log('ThirdParty created: %o', result.data)
 				return result.data
 			} else {
 				return ''
 			}
 		},
 		(error) => {
-			throw new Error(`Axios create ThirdParty error: ${error}`)
+			console.log(`Axios create ThirdParty error: ${error}`)
+			return { error: error.code }
+		}
+	)
+	return id
+}
+
+/**
+ * @see Dolibarr class htdocs/societe/class/societe.class.php
+ */
+api.createInvoice = async (formData) => {
+	const socid = formData.get('socid')
+	if (!socid) {
+		return { error: 'error.empty-fields' }
+	}
+	const data = {
+		socid: socid,
+	}
+	const id = await api.post('/invoices', data).then(
+		(result) => {
+			if (result.status === 200) {
+				//console.log('Invoice created: %o', result.data)
+				return result.data
+			} else {
+				return ''
+			}
+		},
+		(error) => {
+			console.log(`Axios create Invoice error: ${error}`)
+			return { error: error.code }
+		}
+	)
+	return id
+}
+
+api.addInvoiceLine = async (invoiceId, formData) => {
+	const desc = formData.get('desc')
+	const subprice = formData.get('subprice')
+	let qty = formData.get('qty')
+	let tva_tx = formData.get('tva_tx')
+	let product_type = formData.get('product_type')
+	let remise_percent = formData.get('remise_percent')
+	if (!desc || desc === '' || !subprice || subprice === '' || subprice === '0') {
+		return { error: 'error.empty-fields' }
+	}
+	console.log('Sub: %o', subprice)
+	// Set default values
+	if (!qty || qty === '' || qty === 0) {
+		qty = 1
+	}
+	if (!tva_tx || tva_tx === '') {
+		tva_tx = 0
+	}
+	if (!product_type || product_type === '') {
+		product_type = 1 // 1 for service, 2 for product
+	}
+	if (!remise_percent || remise_percent === '') {
+		remise_percent = 0
+	}
+	const data = {
+		desc: desc,
+		subprice: subprice,
+		qty: qty,
+		tva_tx: tva_tx,
+		product_type: product_type,
+		remise_percent: remise_percent,
+	}
+	const id = await api.post(`/invoices/${invoiceId}/lines`, data).then(
+		(result) => {
+			if (result.status === 200) {
+				//console.log('Invoice line created: %o', result.data)
+				return result.data
+			} else {
+				return ''
+			}
+		},
+		(error) => {
+			console.log(`Axios create Invoice line error: ${error}`)
+			return { error: error.code }
+		}
+	)
+	return ''
+}
+
+api.validateInvoice = async (invoiceId) => {
+	const data = {}
+	const id = await api.post(`/invoices/${invoiceId}/validate`, data).then(
+		(result) => {
+			if (result.status === 200) {
+				//console.log('Invoice validated: %o', result.data)
+				return result.data
+			} else {
+				return ''
+			}
+		},
+		(error) => {
+			console.log(`Axios validate Invoice error: ${error}`)
+			return { error: error.code }
 		}
 	)
 	return id

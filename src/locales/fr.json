@@ -28,6 +28,13 @@
 		"title": "Facture",
 		"create": "Nouvelle facture"
 	},
+	"invoiceline": {
+		"desc": "Description",
+		"subprice": "Prix unitaire HT",
+		"qty": "Quantité",
+		"tva_tx": "TVA",
+		"remise_percent": "Réduction (%)"
+	},
 	"thirdparties": {
 		"title": "Clients"
 	},
@@ -39,9 +46,11 @@
 		"phone": "Téléphone",
 		"address": "Adresse",
 		"zip": "Code postal",
-		"town": "Vile"
+		"town": "Vile",
+		"select": "Sélectionner un client"
 	},
 	"error": {
-		"empty-fields": "Champs non renseignés"
+		"empty-fields": "Champs non renseignés",
+		"incorrect-fields": "Champs incorrects"
 	}
 }
