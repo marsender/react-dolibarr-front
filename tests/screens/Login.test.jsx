@@ -1,19 +1,18 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { I18nextProvider } from 'react-i18next'
 import Login from '../../src/screens/Login'
+//import { I18nextProvider } from 'react-i18next'
 //import i18n from '../i18nForTests'
-import i18n from '../../src/i18n'
-import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
+// import i18n from '../../src/i18n'
+// import { Provider } from 'react-redux'
+// import configureStore from 'redux-mock-store'
 //import thunk from 'redux-thunk'
 
 // https://redux.js.org/usage/writing-tests
 // https://www.npmjs.com/package/redux-thunk
-//const mockStore = configureStore([thunk])
-const mockStore = configureStore([])
-const store = mockStore({ contacts: [] })
+// const mockStore = configureStore([])
+// const store = mockStore({ contacts: [] })
 
 describe('Login tests', () => {
 	beforeEach(() => {
@@ -40,7 +39,7 @@ describe('Login tests', () => {
 		// 	</Provider>
 		// )
 		render(<MemoryRouter>{Login()}</MemoryRouter>)
-		screen.debug()
+		//screen.debug()
 		let element = null
 		element = screen.getByRole('heading')
 		expect(element).toBeInTheDocument()

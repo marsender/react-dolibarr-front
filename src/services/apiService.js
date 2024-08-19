@@ -268,7 +268,7 @@ api.addInvoiceLine = async (invoiceId, formData) => {
 			return { error: error.code }
 		}
 	)
-	return ''
+	return id
 }
 
 api.validateInvoice = async (invoiceId) => {
