@@ -1,5 +1,4 @@
-import React from 'react'
-//import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -8,11 +7,11 @@ import api from '../services/apiService'
 
 const Login = () => {
 	const { t } = useTranslation()
-	const [error, setError] = React.useState('')
+	const [error, setError] = useState('')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('login.title')
 	})
 

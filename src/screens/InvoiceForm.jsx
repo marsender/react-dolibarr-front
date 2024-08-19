@@ -1,5 +1,4 @@
-import React from 'react'
-//import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
@@ -7,13 +6,13 @@ import ThirdPartySelectorComponent from '../components/ThirdPartySelectorCompone
 
 const InvoiceForm = () => {
 	const { t } = useTranslation()
-	const [error, setError] = React.useState('')
-	const [qty] = React.useState(1)
-	const [tvaTx] = React.useState(0)
-	const [remisePercent] = React.useState(0)
+	const [error, setError] = useState('')
+	const [qty] = useState(1)
+	const [tvaTx] = useState(0)
+	const [remisePercent] = useState(0)
 	const navigate = useNavigate()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoice.create')
 	})
 

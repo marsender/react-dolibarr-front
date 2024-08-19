@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import ThirdPartyComponent from '../../src/components/ThirdPartyComponent'
 import { ThirdParty } from '../../src/entities/ThirdParty'

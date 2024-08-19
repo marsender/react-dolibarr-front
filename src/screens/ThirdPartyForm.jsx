@@ -1,15 +1,14 @@
-import React from 'react'
-//import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
 
 const ThirdPartyForm = () => {
 	const { t } = useTranslation()
-	const [error, setError] = React.useState('')
+	const [error, setError] = useState('')
 	const navigate = useNavigate()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparty.create')
 	})
 

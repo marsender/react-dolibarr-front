@@ -1,13 +1,13 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
 
 function ThirdPartySelectorComponent() {
 	const { t } = useTranslation()
-	const [thirdParties, setThirdParties] = React.useState([])
-	const [selectedThirdParty, setSelectedThirdParty] = React.useState('')
+	const [thirdParties, setThirdParties] = useState([])
+	const [selectedThirdParty, setSelectedThirdParty] = useState('')
 
-	React.useEffect(() => {
+	useEffect(() => {
 		api.getThirdParties().then((response) => {
 			const thirdParties = response.map((item) => {
 				return { id: item.id, name: item.name }
