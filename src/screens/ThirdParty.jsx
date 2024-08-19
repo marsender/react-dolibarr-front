@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
 import ThirdPartyComponent from '../components/ThirdPartyComponent'
+import ReturnButtonComponent from '../components/ReturnButtonComponent'
 
 const ThirdParty = () => {
 	const { t } = useTranslation()
@@ -25,6 +26,7 @@ const ThirdParty = () => {
 				{t('thirdparty.title')} - {thirdParty.name}
 			</h1>
 			{ThirdPartyComponent(thirdParty, { detail: true })}
+			<ReturnButtonComponent link="/thirdparties" />
 		</>
 	)
 }
