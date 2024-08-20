@@ -63,7 +63,7 @@ const InvoiceForm = () => {
 		}
 		// Validate invoice
 		try {
-			await api.validateInvoice(invoiceId).then((data) => {
+			await api.invoiceValidate(invoiceId).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
 import InvoiceComponent from '../components/InvoiceComponent'
+import DownloadComponent from '../components/DownloadComponent'
 import ReturnButtonComponent from '../components/ReturnButtonComponent'
 
 const Invoice = () => {
@@ -26,7 +27,10 @@ const Invoice = () => {
 				{t('invoice.title')} - {invoice.thirdPartyName}
 			</h1>
 			{InvoiceComponent(invoice, { detail: true })}
-			<ReturnButtonComponent link="/invoices" />
+			<div className="mt-4 flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
+				<ReturnButtonComponent link="/invoices" />
+				<DownloadComponent invoiceRef={invoice.ref} />
+			</div>
 		</>
 	)
 }

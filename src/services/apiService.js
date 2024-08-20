@@ -2,6 +2,8 @@
 import axios from 'axios'
 import { Invoice } from '../entities/Invoice'
 import { ThirdParty } from '../entities/ThirdParty'
+import { Document } from '../entities/Document'
+import { Download } from '../entities/Download'
 
 const api = axios.create({
 	token: '',
@@ -63,12 +65,12 @@ api.getInvoices = async () => {
 	// await sleep(3000)
 	const items = await api
 		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + '&sqlfilters=' + sqlFilter + '&properties=' + properties)
-		.then((response) => {
-			if (!Array.isArray(response.data)) {
-				console.log('Axios Invoices incorrect response: %o', response)
+		.then((result) => {
+			if (!Array.isArray(result.data)) {
+				console.log('Axios Invoices incorrect response: %o', result)
 				return []
 			}
-			return response.data.map((item) => new Invoice(item))
+			return result.data.map((item) => new Invoice(item))
 		})
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
@@ -95,8 +97,8 @@ api.getInvoice = async (id) => {
 	}
 	const item = await api
 		.get(`/invoices/${id}`)
-		.then((response) => {
-			let item = new Invoice(response.data)
+		.then((result) => {
+			let item = new Invoice(result.data)
 			return item
 		})
 		.catch((error) => {
@@ -123,12 +125,12 @@ api.getThirdParties = async () => {
 	const properties = ThirdParty.getApiProperties()
 	const items = await api
 		.get('/thirdparties?sortfield=t.nom&sortorder=ASC' + '&properties=' + properties)
-		.then((response) => {
-			if (!Array.isArray(response.data)) {
-				console.log('Axios ThirdParties incorrect response: %o', response)
+		.then((result) => {
+			if (!Array.isArray(result.data)) {
+				console.log('Axios ThirdParties incorrect response: %o', result)
 				return []
 			}
-			return response.data.map((item) => new ThirdParty(item))
+			return result.data.map((item) => new ThirdParty(item))
 		})
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
@@ -146,8 +148,8 @@ api.getThirdParty = async (id) => {
 	}
 	const item = await api
 		.get(`/thirdparties/${id}`)
-		.then((response) => {
-			return new ThirdParty(response.data)
+		.then((result) => {
+			return new ThirdParty(result.data)
 		})
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
@@ -163,6 +165,9 @@ api.getThirdParty = async (id) => {
  * @see Dolibarr class htdocs/societe/class/societe.class.php
  */
 api.createThirdParty = async (formData) => {
+	if (!api.validToken()) {
+		throw new Error('Third party create: missing api token')
+	}
 	const name = formData.get('name')
 	const email = formData.get('email')
 	if (!name || !email) {
@@ -188,7 +193,7 @@ api.createThirdParty = async (formData) => {
 			}
 		},
 		(error) => {
-			console.log(`Axios create ThirdParty error: ${error}`)
+			console.log(`Axios ThirdParty create error: ${error}`)
 			return { error: error.code }
 		}
 	)
@@ -199,6 +204,9 @@ api.createThirdParty = async (formData) => {
  * @see Dolibarr class htdocs/societe/class/societe.class.php
  */
 api.createInvoice = async (formData) => {
+	if (!api.validToken()) {
+		throw new Error('Invoice create: missing api token')
+	}
 	const socid = formData.get('socid')
 	if (!socid) {
 		return { error: 'error.empty-fields' }
@@ -216,7 +224,7 @@ api.createInvoice = async (formData) => {
 			}
 		},
 		(error) => {
-			console.log(`Axios create Invoice error: ${error}`)
+			console.log(`Axios Invoice create error: ${error}`)
 			return { error: error.code }
 		}
 	)
@@ -224,6 +232,9 @@ api.createInvoice = async (formData) => {
 }
 
 api.addInvoiceLine = async (invoiceId, formData) => {
+	if (!api.validToken()) {
+		throw new Error('Invoice add line: missing api token')
+	}
 	const desc = formData.get('desc')
 	const subprice = formData.get('subprice')
 	let qty = formData.get('qty')
@@ -264,14 +275,17 @@ api.addInvoiceLine = async (invoiceId, formData) => {
 			}
 		},
 		(error) => {
-			console.log(`Axios create Invoice line error: ${error}`)
+			console.log(`Axios Invoice create line error: ${error}`)
 			return { error: error.code }
 		}
 	)
 	return id
 }
 
-api.validateInvoice = async (invoiceId) => {
+api.invoiceValidate = async (invoiceId) => {
+	if (!api.validToken()) {
+		throw new Error('Invoice validate: missing api token')
+	}
 	const data = {}
 	const id = await api.post(`/invoices/${invoiceId}/validate`, data).then(
 		(result) => {
@@ -283,11 +297,53 @@ api.validateInvoice = async (invoiceId) => {
 			}
 		},
 		(error) => {
-			console.log(`Axios validate Invoice error: ${error}`)
+			console.log(`Axios Invoice validate error: ${error}`)
 			return { error: error.code }
 		}
 	)
 	return id
+}
+
+api.getDocuments = async (module, invoiceRef) => {
+	if (!api.validToken()) {
+		throw new Error('Documents: missing api token')
+	}
+	const items = await api
+		.get(`/documents?modulepart=${module}&ref=${invoiceRef}`)
+		.then((result) => {
+			if (!Array.isArray(result.data)) {
+				console.log('Axios Documents incorrect response: %o', result)
+				return []
+			}
+			return result.data.map((item) => new Document(item))
+		})
+		.catch((error) => {
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios ThirdParties error %s: %s', error.code, error.message)
+				throw new Error(`Axios Invoice documents error ${error.code}: ${error.message}`)
+			}
+			return []
+		})
+	return items
+}
+
+api.getDocumentDownload = async (path) => {
+	if (!api.validToken()) {
+		throw new Error('Document: missing api token')
+	}
+	const item = await api
+		.get(`documents/download?modulepart=invoice&original_file=/${path}`)
+		.then((result) => {
+			return new Download(result.data)
+		})
+		.catch((error) => {
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios ThirdParty error %s: %s', error.code, error.message)
+				throw new Error(`Axios Document error ${error.code}: ${error.message}`)
+			}
+			return null
+		})
+	return item
 }
 
 // Add interceptor to set dynamic header

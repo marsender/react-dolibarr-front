@@ -1,9 +1,26 @@
+import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+import api from '../services/apiService'
 
-const DownloadComponent = ({ jsonResponse }) => {
-	const downloadFile = () => {
+const DownloadComponent = ({ invoiceRef }) => {
+	const { t } = useTranslation()
+
+	const downloadFile = async () => {
+		let invoiceDocument = await api.getDocuments('invoice', invoiceRef).then((response) => {
+			if (!Array.isArray(response) && response.length) {
+				throw new Error('Incorrect invoice document: ' + ref)
+			}
+			return response[0]
+		})
+		let download = await api.getDocumentDownload(invoiceDocument.path).then((response) => {
+			if (response === null) {
+				throw new Error('Incorrect invoice download: ' + ref)
+			}
+			return response
+		})
+
 		// Decode the base64 content
-		const pdfContent = atob(jsonResponse.content)
+		const pdfContent = atob(download.content)
 
 		// Convert the decoded content to a Uint8Array
 		const byteArray = new Uint8Array(pdfContent.length)
@@ -12,7 +29,7 @@ const DownloadComponent = ({ jsonResponse }) => {
 		}
 
 		// Create a Blob from the byteArray
-		const blob = new Blob([byteArray], { type: jsonResponse['content-type'] })
+		const blob = new Blob([byteArray], { type: download.contentType })
 
 		// Create a URL from the Blob
 		const url = URL.createObjectURL(blob)
@@ -20,11 +37,11 @@ const DownloadComponent = ({ jsonResponse }) => {
 		// Create a link element and trigger a download
 		const link = document.createElement('a')
 		link.href = url
-		link.download = jsonResponse.filename
+		link.download = download.filename
 
 		// Add headers for download
-		link.setAttribute('Content-Disposition', `attachment; filename="${jsonResponse.filename}"`)
-		link.setAttribute('Content-Type', jsonResponse['content-type'])
+		link.setAttribute('Content-Disposition', `attachment; filename="${download.filename}"`)
+		link.setAttribute('Content-Type', download.contentType)
 
 		document.body.appendChild(link)
 		link.click()
@@ -34,11 +51,15 @@ const DownloadComponent = ({ jsonResponse }) => {
 		URL.revokeObjectURL(url)
 	}
 
-	return <button onClick={downloadFile}>Download</button>
+	return (
+		<button onClick={downloadFile} className="px-3 py-2 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+			{t('label.download')}
+		</button>
+	)
 }
 
 DownloadComponent.propTypes = {
-	jsonResponse: PropTypes.jsonResponse,
+	invoiceRef: PropTypes.string,
 }
 
 export default DownloadComponent
