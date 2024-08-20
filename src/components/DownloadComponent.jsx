@@ -8,13 +8,13 @@ const DownloadComponent = ({ invoiceRef }) => {
 	const downloadFile = async () => {
 		let invoiceDocument = await api.getDocuments('invoice', invoiceRef).then((response) => {
 			if (!Array.isArray(response) && response.length) {
-				throw new Error('Incorrect invoice document: ' + ref)
+				throw new Error('Incorrect invoice document: ' + invoiceRef)
 			}
 			return response[0]
 		})
 		let download = await api.getDocumentDownload(invoiceDocument.path).then((response) => {
 			if (response === null) {
-				throw new Error('Incorrect invoice download: ' + ref)
+				throw new Error('Incorrect invoice download: ' + invoiceRef)
 			}
 			return response
 		})
