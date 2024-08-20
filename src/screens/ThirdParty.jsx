@@ -26,7 +26,9 @@ const ThirdParty = () => {
 				{t('thirdparty.title')} - {thirdParty.name}
 			</h1>
 			{ThirdPartyComponent(thirdParty, { detail: true })}
-			<ReturnButtonComponent link="/thirdparties" />
+			<div className="mt-4 flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
+				<ReturnButtonComponent link="/thirdparties" />
+			</div>
 		</>
 	)
 }
