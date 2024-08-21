@@ -13,7 +13,7 @@ const ThirdParties = () => {
 		api.getThirdParties().then((response) => {
 			setThirdParties(response)
 		})
-	})
+	}, [t])
 
 	return (
 		<>

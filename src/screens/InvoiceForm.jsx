@@ -15,7 +15,7 @@ const InvoiceForm = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoice.create')
-	})
+	}, [t])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -50,19 +50,19 @@ const InvoiceForm = () => {
 			return
 		}
 		// Update invoice
-		try {
-			await api.updateInvoice(invoiceId, formData).then((data) => {
-				if (typeof data.error !== 'undefined') {
-					setError(t(data.error))
-					return
-				}
-				console.log('Updated data: %o', data)
-			})
-		} catch (err) {
-			setError(t('invoice.error'))
-			console.log('Invoice update exception: %o', err)
-			return
-		}
+		// try {
+		// 	await api.updateInvoice(invoiceId, formData).then((data) => {
+		// 		if (typeof data.error !== 'undefined') {
+		// 			setError(t(data.error))
+		// 			return
+		// 		}
+		// 		console.log('Updated data: %o', data)
+		// 	})
+		// } catch (err) {
+		// 	setError(t('invoice.error'))
+		// 	console.log('Invoice update exception: %o', err)
+		// 	return
+		// }
 		// Add invoice lines
 		try {
 			await api.addInvoiceLine(invoiceId, formData).then((data) => {

@@ -19,7 +19,7 @@ const Invoice = () => {
 				setInvoice(response)
 			}
 		})
-	})
+	}, [id, t])
 
 	return (
 		<>

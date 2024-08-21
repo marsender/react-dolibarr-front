@@ -13,7 +13,7 @@ const Invoices = () => {
 		api.getInvoices().then((response) => {
 			setInvoices(response)
 		})
-	})
+	}, [t])
 
 	return (
 		<>

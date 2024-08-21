@@ -7,7 +7,7 @@ const UnloggedHome = () => {
 
 	useEffect(() => {
 		document.title = t('app.title')
-	})
+	}, [t])
 
 	return (
 		<Link to="/login">

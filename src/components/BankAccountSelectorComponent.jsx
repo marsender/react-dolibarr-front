@@ -14,7 +14,7 @@ function BankAccountSelectorComponent() {
 			})
 			setBankAccounts(bankAccounts)
 		})
-	})
+	}, [t])
 
 	const handleChange = (event) => {
 		const selectedId = event.target.value

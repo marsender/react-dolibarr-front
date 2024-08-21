@@ -14,7 +14,7 @@ function ThirdPartySelectorComponent() {
 			})
 			setThirdParties(thirdParties)
 		})
-	})
+	}, [t])
 
 	const handleChange = (event) => {
 		const selectedId = event.target.value

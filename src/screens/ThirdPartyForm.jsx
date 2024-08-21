@@ -10,7 +10,7 @@ const ThirdPartyForm = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparty.create')
-	})
+	}, [t])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

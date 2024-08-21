@@ -18,7 +18,7 @@ const ThirdParty = () => {
 				setThirdParty(response)
 			}
 		})
-	})
+	}, [id, t])
 
 	return (
 		<>
