@@ -11,7 +11,6 @@ export class Invoice {
 		this.id = props.id
 		this.ref = props.ref
 		this.socid = props.socid
-		this.thirdParty = null
 		this.thirdPartyName = ''
 		this.url = `/invoice/${props.id}`
 		const dateValidation = new Date(props.date_validation * 1000)
@@ -20,9 +19,8 @@ export class Invoice {
 		this.totalTtc = numberFormatter.format(props.total_ttc) + ' ' + process.env.CURRENCY
 		this.lines = props.lines.map((item) => new InvoiceLine(item))
 	}
-	setThirdParty(thirdParty) {
-		this.thirdParty = thirdParty
-		this.thirdPartyName = thirdParty.name
+	setThirdPartyName(name) {
+		this.thirdPartyName = name
 	}
 	// List of properties to fetch
 	static getApiProperties() {

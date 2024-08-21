@@ -50,20 +50,29 @@ api.login = async (username, password) => {
 	return token
 }
 
+/**
+ * Wait function to test promise
+ *
+ * Usage: await api.sleepTest(3000)
+ *
+ * @param {number} ms Number of milliseconds to wait
+ */
+api.sleepTest = async (ms) => {
+	return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 api.getInvoices = async () => {
 	if (!api.validToken()) {
 		return []
 	}
+	// Get all third party names
+	const thirdPartiesNames = await api.getThirdPartyNames()
+	// Get invoices
 	// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
 	const date = new Date() // Get the current date
 	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
 	const sqlFilter = "(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
 	const properties = Invoice.getApiProperties()
-	// function sleep(ms) {
-	// 	return new Promise((resolve) => setTimeout(resolve, ms))
-	// }
-	// Waits for debug
-	// await sleep(3000)
 	const items = await api
 		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + '&sqlfilters=' + sqlFilter + '&properties=' + properties)
 		.then((result) => {
@@ -71,7 +80,13 @@ api.getInvoices = async () => {
 				console.log('Axios Invoices incorrect response: %o', result)
 				return []
 			}
-			return result.data.map((item) => new Invoice(item))
+			return result.data.map((item) => {
+				const invoice = new Invoice(item)
+				if (item.socid && thirdPartiesNames[item.socid] !== undefined) {
+					invoice.setThirdPartyName(thirdPartiesNames[item.socid])
+				}
+				return invoice
+			})
 		})
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
@@ -81,14 +96,14 @@ api.getInvoices = async () => {
 			return []
 		})
 	// Fetch third party for each invoice
-	await Promise.all(
-		items.map(async (item) => {
-			const thirdParty = await api.getThirdParty(item.socid)
-			if (thirdParty) {
-				item.setThirdParty(thirdParty)
-			}
-		})
-	)
+	// await Promise.all(
+	// 	items.map(async (item) => {
+	// 		const thirdParty = await api.getThirdParty(item.socid)
+	// 		if (thirdParty) {
+	// 			item.setThirdPartyName(thirdParty.name)
+	// 		}
+	// 	})
+	// )
 	return items
 }
 
@@ -114,7 +129,7 @@ api.getInvoice = async (id) => {
 	}
 	const thirdParty = await api.getThirdParty(item.socid)
 	if (thirdParty) {
-		item.setThirdParty(thirdParty)
+		item.setThirdPartyName(thirdParty.name)
 	}
 	return item
 }
@@ -141,6 +156,26 @@ api.getThirdParties = async () => {
 			return []
 		})
 	return items
+}
+
+/**
+ * Get an object with third party keys associated to names
+ * eg: { 1: "Name 1", 2: "Name 2" }
+ */
+api.getThirdPartyNames = async () => {
+	if (!api.validToken()) {
+		return {}
+	}
+	const thirdParties = await api.getThirdParties()
+	const obj = thirdParties
+		.map((item) => {
+			return { key: item.id, value: item.name }
+		})
+		.reduce((obj, item) => {
+			obj[item.key] = item.value
+			return obj
+		}, {})
+	return obj
 }
 
 api.getThirdParty = async (id) => {
