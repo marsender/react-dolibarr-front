@@ -1,5 +1,6 @@
 // src/services/apiService.js
 import axios from 'axios'
+import { User } from '../entities/User'
 import { Invoice } from '../entities/Invoice'
 import { ThirdParty } from '../entities/ThirdParty'
 import { Document } from '../entities/Document'
@@ -40,14 +41,23 @@ api.login = async (username, password) => {
 					//console.log('Login ok with token: %s', result.data.success.token)
 					return result.data.success.token
 				} else {
-					return ''
+					console.log('Incorrect login')
+					return null
 				}
 			},
 			(error) => {
 				throw new Error(`Axios Login error: ${error}`)
 			}
 		)
-	return token
+	// Set token in order to be able to fetch users
+	api.setToken(token)
+	const users = await api.getUsers(username)
+	if (!Array.isArray(users) && users.length === 1) {
+		throw new Error(`Axios User not found: ${username}`)
+	}
+	const user = users[0]
+	user.setToken(token)
+	return user
 }
 
 /**
@@ -71,10 +81,10 @@ api.getInvoices = async () => {
 	// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
 	const date = new Date() // Get the current date
 	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
-	const sqlFilter = "(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
+	const sqlFilter = "&sqlfilters=(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
 	const properties = Invoice.getApiProperties()
 	const items = await api
-		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + '&sqlfilters=' + sqlFilter + '&properties=' + properties)
+		.get('/invoices?sortfield=t.rowid&sortorder=DESC' + sqlFilter + '&properties=' + properties)
 		.then((result) => {
 			if (!Array.isArray(result.data)) {
 				console.log('Axios Invoices incorrect response: %o', result)
@@ -433,6 +443,31 @@ api.getBankAccounts = async () => {
 			if (error.code !== 'ECONNABORTED') {
 				//console.log('Axios BankAccounts error %s: %s', error.code, error.message)
 				throw new Error(`Axios BankAccounts error ${error.code}: ${error.message}`)
+			}
+			return []
+		})
+	return items
+}
+
+api.getUsers = async (username = null) => {
+	if (!api.validToken()) {
+		return []
+	}
+	const sqlFilter = username ? "&sqlfilters=(t.login:=:'" + username + "')" : ''
+	const properties = User.getApiProperties()
+	const items = await api
+		.get('/users?sortfield=t.firstname,t.lastname&sortorder=ASC' + sqlFilter + '&properties=' + properties)
+		.then((result) => {
+			if (!Array.isArray(result.data)) {
+				console.log('Axios Users incorrect response: %o', result)
+				return []
+			}
+			return result.data.map((item) => new User(item))
+		})
+		.catch((error) => {
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios Users error %s: %s', error.code, error.message)
+				throw new Error(`Axios Users error ${error.code}: ${error.message}`)
 			}
 			return []
 		})

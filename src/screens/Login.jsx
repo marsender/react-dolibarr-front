@@ -21,11 +21,11 @@ const Login = () => {
 		const username = data.get('username')
 		const password = data.get('password')
 		try {
-			api.login(username, password).then((token) => {
-				if (token.length) {
-					//console.log('Login ok with token: %s', token)
+			await api.login(username, password).then((user) => {
+				if (user) {
+					//console.log('Login ok with user: %o', user)
 					dispatch(setLoggedIn(true))
-					dispatch(setUserToken(token))
+					dispatch(setUserToken(user.getToken()))
 					navigate('/')
 				} else {
 					dispatch(setLoggedIn(false))

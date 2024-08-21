@@ -1,19 +1,22 @@
 export class User {
-	constructor(dolitoken) {
-		this.dolitoken = dolitoken
-		this.id = null
-		this.email = null
-		this.user_mobile = null
-		this.office_phone = null
-		this.login = null
-		this.entity = null
-		this.societe_id = null
-		this.contact_id = null
-		this.firstname = null
-		this.lastname = null
-		this.entity = null
-		this.address = null
-		this.zip = null
-		this.town = null
+	constructor(props) {
+		this.token = ''
+		this.id = props.id
+		this.login = props.login
+		this.email = props.firstname = props.firstname
+		this.lastname = props.lastname
+		this.datec = props.datec
+		this.datelastlogin = props.datelastlogin
+		this.photo = props.photo
+	}
+	setToken(token) {
+		this.token = token
+	}
+	getToken() {
+		return this.token
+	}
+	// List of properties to fetch
+	static getApiProperties() {
+		return 'id,login,email,firstname,lastname,datec,datelastlogin,photo'
 	}
 }
