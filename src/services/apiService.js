@@ -202,18 +202,20 @@ api.createThirdParty = async (formData) => {
 }
 
 /**
- * @see Dolibarr class htdocs/societe/class/societe.class.php
+ * @see Dolibarr class htdocs/compta/facture/class/facture.class.php
  */
 api.createInvoice = async (formData) => {
 	if (!api.validToken()) {
 		throw new Error('Invoice create: missing api token')
 	}
 	const socid = formData.get('socid')
-	if (!socid) {
+	const bankAccount = formData.get('fk_account')
+	if (!socid || !bankAccount) {
 		return { error: 'error.empty-fields' }
 	}
 	const data = {
 		socid: socid,
+		fk_account: bankAccount,
 	}
 	const id = await api.post('/invoices', data).then(
 		(result) => {
