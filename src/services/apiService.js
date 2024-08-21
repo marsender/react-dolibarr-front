@@ -238,9 +238,15 @@ api.updateInvoice = async (invoiceId, formData) => {
 	if (!api.validToken()) {
 		throw new Error('Invoice add line: missing api token')
 	}
+	const data = {}
+	// Add properties if set
 	const bankAccount = formData.get('fk_account')
-	const data = {
-		fk_account: bankAccount,
+	if (bankAccount.length) {
+		data.fk_account = bankAccount
+	}
+	const socid = formData.get('socid')
+	if (bankAccount.socid) {
+		data.socid = socid
 	}
 	const json = await api.put(`/invoices/${invoiceId}`, data).then(
 		(result) => {
