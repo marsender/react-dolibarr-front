@@ -10,7 +10,7 @@ function ThirdPartySelectorComponent() {
 	useEffect(() => {
 		api.getThirdParties().then((response) => {
 			const thirdParties = response.map((item) => {
-				return { id: item.id, name: item.name }
+				return { id: item.id, value: item.name }
 			})
 			setThirdParties(thirdParties)
 		})
@@ -30,9 +30,9 @@ function ThirdPartySelectorComponent() {
 				<option value="" disabled>
 					{t('thirdparty.select')}
 				</option>
-				{thirdParties.map((party) => (
-					<option key={party.id} value={party.id}>
-						{party.name}
+				{thirdParties.map((item) => (
+					<option key={item.id} value={item.id}>
+						{item.value}
 					</option>
 				))}
 			</select>

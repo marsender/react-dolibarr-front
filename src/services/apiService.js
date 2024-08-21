@@ -4,6 +4,7 @@ import { Invoice } from '../entities/Invoice'
 import { ThirdParty } from '../entities/ThirdParty'
 import { Document } from '../entities/Document'
 import { Download } from '../entities/Download'
+import { BankAccount } from '../entities/BankAccount'
 
 const api = axios.create({
 	token: '',
@@ -231,6 +232,31 @@ api.createInvoice = async (formData) => {
 	return id
 }
 
+api.updateInvoice = async (invoiceId, formData) => {
+	if (!api.validToken()) {
+		throw new Error('Invoice add line: missing api token')
+	}
+	const bankAccount = formData.get('fk_account')
+	const data = {
+		fk_account: bankAccount,
+	}
+	const json = await api.put(`/invoices/${invoiceId}`, data).then(
+		(result) => {
+			if (result.status === 200) {
+				console.log('Invoice updated: %o', result.data)
+				return result.data
+			} else {
+				return ''
+			}
+		},
+		(error) => {
+			console.log(`Axios Invoice update error: ${error}`)
+			return { error: error.code }
+		}
+	)
+	return json
+}
+
 api.addInvoiceLine = async (invoiceId, formData) => {
 	if (!api.validToken()) {
 		throw new Error('Invoice add line: missing api token')
@@ -344,6 +370,30 @@ api.getDocumentDownload = async (path) => {
 			return null
 		})
 	return item
+}
+
+api.getBankAccounts = async () => {
+	if (!api.validToken()) {
+		return []
+	}
+	const properties = BankAccount.getApiProperties()
+	const items = await api
+		.get('/bankaccounts?sortfield=t.label&sortorder=ASC' + '&properties=' + properties)
+		.then((result) => {
+			if (!Array.isArray(result.data)) {
+				console.log('Axios BankAccounts incorrect response: %o', result)
+				return []
+			}
+			return result.data.map((item) => new BankAccount(item))
+		})
+		.catch((error) => {
+			if (error.code !== 'ECONNABORTED') {
+				//console.log('Axios BankAccounts error %s: %s', error.code, error.message)
+				throw new Error(`Axios BankAccounts error ${error.code}: ${error.message}`)
+			}
+			return []
+		})
+	return items
 }
 
 // Add interceptor to set dynamic header

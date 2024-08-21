@@ -51,6 +51,10 @@
 		"town": "Town",
 		"select": "Select a third party"
 	},
+	"bankaccount": {
+		"title": "Bank account",
+		"select": "Select a bank account"
+	},
 	"error": {
 		"empty-fields": "Fields not filled in",
 		"incorrect-fields": "Incorrect fields"

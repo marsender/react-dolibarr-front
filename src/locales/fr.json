@@ -51,6 +51,10 @@
 		"town": "Vile",
 		"select": "Sélectionner un client"
 	},
+	"bankaccount": {
+		"title": "Compte bancaire",
+		"select": "Sélectionner un compte bancaire"
+	},
 	"error": {
 		"empty-fields": "Champs non renseignés",
 		"incorrect-fields": "Champs incorrects"

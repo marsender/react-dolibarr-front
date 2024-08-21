@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api from '../services/apiService'
 import ThirdPartySelectorComponent from '../components/ThirdPartySelectorComponent'
+import BankAccountSelectorComponent from '../components/BankAccountSelectorComponent'
 
 const InvoiceForm = () => {
 	const { t } = useTranslation()
@@ -48,6 +49,20 @@ const InvoiceForm = () => {
 			console.log('Invoice create exception: %o', err)
 			return
 		}
+		// Update invoice
+		try {
+			await api.updateInvoice(invoiceId, formData).then((data) => {
+				if (typeof data.error !== 'undefined') {
+					setError(t(data.error))
+					return
+				}
+				console.log('Updated data: %o', data)
+			})
+		} catch (err) {
+			setError(t('invoice.error'))
+			console.log('Invoice update exception: %o', err)
+			return
+		}
 		// Add invoice lines
 		try {
 			await api.addInvoiceLine(invoiceId, formData).then((data) => {
@@ -81,8 +96,9 @@ const InvoiceForm = () => {
 		<>
 			<h1 className="flex text-center my-4 text-2xl font-semibold">{t('invoice.create')}</h1>
 			<form onSubmit={handleSubmit}>
-				<div className="grid gap-6 mb-6">
+				<div className="grid gap-6 mb-6 md:grid-cols-2">
 					<ThirdPartySelectorComponent />
+					<BankAccountSelectorComponent />
 				</div>
 				<div className="grid gap-6 mb-6">
 					<div>
