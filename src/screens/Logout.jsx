@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn } from '../redux/reducers/authSlice'
+import { logout } from '../redux/reducers/userSlice'
 
 const Logout = () => {
 	const { t } = useTranslation()
@@ -10,7 +10,7 @@ const Logout = () => {
 
 	const handleLogout = async () => {
 		try {
-			dispatch(setLoggedIn(false))
+			dispatch(logout())
 			navigate('/')
 		} catch (err) {
 			console.log('Logout error: %o', err)

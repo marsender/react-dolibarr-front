@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { setLoggedIn, setUserToken } from '../redux/reducers/authSlice'
+import { login, logout } from '../redux/reducers/userSlice'
 import api from '../services/apiService'
 
 const Login = () => {
@@ -24,11 +24,10 @@ const Login = () => {
 			await api.login(username, password).then((user) => {
 				if (user) {
 					//console.log('Login ok with user: %o', user)
-					dispatch(setLoggedIn(true))
-					dispatch(setUserToken(user.getToken()))
+					dispatch(login(user.toObject()))
 					navigate('/')
 				} else {
-					dispatch(setLoggedIn(false))
+					dispatch(logout())
 				}
 			})
 		} catch (err) {

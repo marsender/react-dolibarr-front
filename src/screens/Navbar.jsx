@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
-import { setLoggedIn } from '../redux/reducers/authSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser, logout } from '../redux/reducers/userSlice'
 import logo from '/vite.svg'
 import profilePicture from '/profile-picture.jpg'
+import { User } from '../entities/User'
 
 const Navbar = () => {
 	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const user = new User(useSelector(selectUser))
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -28,7 +30,7 @@ const Navbar = () => {
 
 	const handleLogout = async () => {
 		try {
-			dispatch(setLoggedIn(false))
+			dispatch(logout())
 			navigate('/')
 		} catch (err) {
 			console.log('Logout error: %o', err)

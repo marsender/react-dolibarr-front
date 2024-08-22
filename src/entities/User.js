@@ -1,19 +1,25 @@
 export class User {
 	constructor(props) {
-		this.token = ''
-		this.id = props.id
-		this.login = props.login
-		this.email = props.firstname = props.firstname
-		this.lastname = props.lastname
-		this.datec = props.datec
-		this.datelastlogin = props.datelastlogin
-		this.photo = props.photo
+		this.token = props.token ?? null
+		this.id = props.id ?? null
+		this.login = props.login ?? null
+		this.email = props.email ?? null
+		this.firstname = props.firstname ?? null
+		this.lastname = props.lastname ?? null
+		this.datec = props.datec ?? null
+		this.datelastlogin = props.datelastlogin ?? null
+		this.photo = props.photo ?? null
 	}
 	setToken(token) {
 		this.token = token
 	}
 	getToken() {
 		return this.token
+	}
+	toObject() {
+		return {
+			...this, // Spread the properties of the instance into a new object
+		}
 	}
 	// List of properties to fetch
 	static getApiProperties() {

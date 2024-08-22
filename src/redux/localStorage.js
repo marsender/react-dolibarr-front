@@ -6,7 +6,7 @@ export const loadState = () => {
 		//console.log('serializedState: %o', serializedState)
 
 		if (serializedState === null) {
-			return {}
+			return undefined
 		}
 
 		const loaded = JSON.parse(serializedState)
@@ -15,11 +15,11 @@ export const loadState = () => {
 			return undefined
 		}
 
-		// Ensure auth state is initialized if not present
-		if (!loaded.authReducer) {
-			loaded.authReducer = {
-				isLoggedIn: false, // or your initial auth state
-				userToken: '',
+		// Initialize user state if not present
+		if (!loaded.user) {
+			loaded.user = {
+				user: {},
+				isLoggedIn: false,
 			}
 		}
 		//console.log('loaded state: %o', loaded)

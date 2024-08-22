@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
-import authReducer from './reducers/authSlice'
+import userReducer from './reducers/userSlice'
 import { loadState, saveState } from './localStorage'
 
 const reducer = combineReducers({
-	authReducer,
+	user: userReducer,
+	// other: otherReducer,
 })
 
 const preloadedState = loadState()
