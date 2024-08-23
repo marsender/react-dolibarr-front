@@ -6,6 +6,7 @@ import { selectUser, logout } from '../redux/reducers/userSlice'
 import logo from '/vite.svg'
 import profilePicture from '/profile-picture.jpg'
 import { User } from '../entities/User'
+import ProfilePictureComponent from '../components/ProfilePictureComponent'
 
 const Navbar = () => {
 	const { t } = useTranslation()
@@ -47,12 +48,12 @@ const Navbar = () => {
 				<div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse" style={{ position: 'relative' }}>
 					<button onClick={toggleDropdown} type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isDropdownOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 						<span className="sr-only">Open user menu</span>
-						<img className="w-8 h-8 rounded-full" src={profilePicture} alt="" />
+						<ProfilePictureComponent src={profilePicture} />
 					</button>
 					<div className={`z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? '' : 'hidden'}`} id="user-dropdown" style={{ position: 'absolute', top: '0px', right: '0px', margin: '0px', transform: 'translate(10px, 50px)' }}>
 						<div className="px-4 py-3">
-							<span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-							<span className="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+							<span className="block text-sm text-gray-900 dark:text-white">{user.getFullName()}</span>
+							<span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{user.email}</span>
 						</div>
 						<ul className="py-2" aria-labelledby="user-menu-button">
 							<li>

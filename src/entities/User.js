@@ -16,6 +16,9 @@ export class User {
 	getToken() {
 		return this.token
 	}
+	getFullName() {
+		return this.firstname + ' ' + this.lastname
+	}
 	toObject() {
 		return {
 			...this, // Spread the properties of the instance into a new object
