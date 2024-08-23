@@ -29,7 +29,7 @@ const Invoice = () => {
 			{InvoiceComponent(invoice, { detail: true })}
 			<div className="mt-4 flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
 				<ReturnButtonComponent link="/invoices" />
-				<DownloadComponent invoiceRef={invoice.ref} />
+				<DownloadComponent module="invoice" documentRef={invoice.ref} />
 			</div>
 		</>
 	)

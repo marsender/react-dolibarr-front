@@ -2,30 +2,30 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import api from '../services/apiService'
 
-const DownloadComponent = ({ invoiceRef }) => {
+const DownloadComponent = ({ module, documentRef }) => {
 	const { t } = useTranslation()
 
 	const downloadFile = async () => {
-		let invoiceDocument = await api.getDocuments('invoice', invoiceRef).then((response) => {
+		let invoiceDocument = await api.getDocuments(module, documentRef).then((response) => {
 			if (!Array.isArray(response) && response.length) {
-				throw new Error('Incorrect invoice document: ' + invoiceRef)
+				throw new Error('Incorrect module document: ' + module + ' ' + documentRef)
 			}
 			return response[0]
 		})
-		let download = await api.getDocumentDownload(invoiceDocument.path).then((response) => {
+		let download = await api.getDocumentDownload(module, invoiceDocument.path).then((response) => {
 			if (response === null) {
-				throw new Error('Incorrect invoice download: ' + invoiceRef)
+				throw new Error('Incorrect module document download: ' + module + ' ' + documentRef)
 			}
 			return response
 		})
 
 		// Decode the base64 content
-		const pdfContent = atob(download.content)
+		const binaryContent = atob(download.content)
 
 		// Convert the decoded content to a Uint8Array
-		const byteArray = new Uint8Array(pdfContent.length)
-		for (let i = 0; i < pdfContent.length; i++) {
-			byteArray[i] = pdfContent.charCodeAt(i)
+		const byteArray = new Uint8Array(binaryContent.length)
+		for (let i = 0; i < binaryContent.length; i++) {
+			byteArray[i] = binaryContent.charCodeAt(i)
 		}
 
 		// Create a Blob from the byteArray
@@ -59,7 +59,8 @@ const DownloadComponent = ({ invoiceRef }) => {
 }
 
 DownloadComponent.propTypes = {
-	invoiceRef: PropTypes.string,
+	module: PropTypes.string,
+	documentRef: PropTypes.string,
 }
 
 export default DownloadComponent
