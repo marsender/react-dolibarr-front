@@ -60,9 +60,7 @@ api.login = async (username, password) => {
 	// Get user profile image
 	let download = null
 	if (user.photo) {
-		const parts = user.photo.split('.')
-		const path = user.id + '/photos/thumbs/' + parts[0] + '_small.' + parts[1]
-		download = await api.getDocumentDownload('user', path).then(
+		download = await api.getDocumentDownload('user', user.getProfilePicture()).then(
 			(response) => {
 				return response
 			},

@@ -19,6 +19,11 @@ export class User {
 	getFullName() {
 		return this.firstname + ' ' + this.lastname
 	}
+	getProfilePicture() {
+		const fileWithoutExt = this.photo.replace(/\.[^/.]+$/, '')
+		const fileExt = this.photo.substr(this.photo.lastIndexOf('.') + 1)
+		return this.id + '/photos/thumbs/' + fileWithoutExt + '_small.' + fileExt
+	}
 	toObject() {
 		return {
 			...this, // Spread the properties of the instance into a new object
