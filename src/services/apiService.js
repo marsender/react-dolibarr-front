@@ -57,6 +57,23 @@ api.login = async (username, password) => {
 	}
 	const user = users[0]
 	user.setToken(token)
+	// Get user profile image
+	if (user.photo.length) {
+		const parts = user.photo.split('.')
+		const path = user.id + '/photos/thumbs/' + parts[0] + '_small.' + parts[1]
+		const download = await api.getDocumentDownload('user', path).then(
+			(response) => {
+				return response
+			},
+			(error) => {
+				console.log('User profile image error: %o', error)
+				return null
+			}
+		)
+		if (download) {
+			console.log('User profile download: %o', download)
+		}
+	}
 	return user
 }
 
@@ -383,12 +400,12 @@ api.invoiceValidate = async (invoiceId) => {
 	return id
 }
 
-api.getDocuments = async (module, invoiceRef) => {
+api.getDocuments = async (module, ref) => {
 	if (!api.validToken()) {
 		throw new Error('Documents: missing api token')
 	}
 	const items = await api
-		.get(`/documents?modulepart=${module}&ref=${invoiceRef}`)
+		.get(`/documents?modulepart=${module}&ref=${ref}`)
 		.then((result) => {
 			if (!Array.isArray(result.data)) {
 				console.log('Axios Documents incorrect response: %o', result)
@@ -399,26 +416,26 @@ api.getDocuments = async (module, invoiceRef) => {
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
 				//console.log('Axios ThirdParties error %s: %s', error.code, error.message)
-				throw new Error(`Axios Invoice documents error ${error.code}: ${error.message}`)
+				throw new Error(`Axios Documents module error ${error.code}: ${error.message}`)
 			}
 			return []
 		})
 	return items
 }
 
-api.getDocumentDownload = async (path) => {
+api.getDocumentDownload = async (module, path) => {
 	if (!api.validToken()) {
 		throw new Error('Document: missing api token')
 	}
 	const item = await api
-		.get(`documents/download?modulepart=invoice&original_file=/${path}`)
+		.get(`documents/download?modulepart=${module}&original_file=/${path}`)
 		.then((result) => {
 			return new Download(result.data)
 		})
 		.catch((error) => {
 			if (error.code !== 'ECONNABORTED') {
 				//console.log('Axios ThirdParty error %s: %s', error.code, error.message)
-				throw new Error(`Axios Document error ${error.code}: ${error.message}`)
+				throw new Error(`Axios Document download error ${error.code}: ${error.message}`)
 			}
 			return null
 		})
