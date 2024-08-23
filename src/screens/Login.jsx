@@ -21,10 +21,10 @@ const Login = () => {
 		const username = data.get('username')
 		const password = data.get('password')
 		try {
-			await api.login(username, password).then((user) => {
-				if (user) {
-					//console.log('Login ok with user: %o', user)
-					dispatch(login(user.toObject()))
+			await api.login(username, password).then((data) => {
+				if (data) {
+					//console.log('Login ok with data: %o', data)
+					dispatch(login(data))
 					navigate('/')
 				} else {
 					dispatch(logout())

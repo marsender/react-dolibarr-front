@@ -19,6 +19,7 @@ export const loadState = () => {
 		if (!loaded.userReducer) {
 			loaded.userReducer = {
 				user: {},
+				userProfileImage: null,
 				isLoggedIn: false,
 			}
 		}

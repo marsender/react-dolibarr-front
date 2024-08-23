@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectUser, logout } from '../redux/reducers/userSlice'
+import { selectUser, selectUserProfileImage, logout } from '../redux/reducers/userSlice'
 import logo from '/vite.svg'
 import profilePicture from '/profile-picture.jpg'
 import { User } from '../entities/User'
@@ -13,6 +13,7 @@ const Navbar = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const user = new User(useSelector(selectUser))
+	const userProfileImage = useSelector(selectUserProfileImage)
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -48,7 +49,7 @@ const Navbar = () => {
 				<div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse" style={{ position: 'relative' }}>
 					<button onClick={toggleDropdown} type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isDropdownOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 						<span className="sr-only">Open user menu</span>
-						<ProfilePictureComponent src={profilePicture} />
+						<ProfilePictureComponent src={profilePicture} userProfileImage={userProfileImage} />
 					</button>
 					<div className={`z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? '' : 'hidden'}`} id="user-dropdown" style={{ position: 'absolute', top: '0px', right: '0px', margin: '0px', transform: 'translate(10px, 50px)' }}>
 						<div className="px-4 py-3">

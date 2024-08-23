@@ -58,10 +58,11 @@ api.login = async (username, password) => {
 	const user = users[0]
 	user.setToken(token)
 	// Get user profile image
+	let download = null
 	if (user.photo.length) {
 		const parts = user.photo.split('.')
 		const path = user.id + '/photos/thumbs/' + parts[0] + '_small.' + parts[1]
-		const download = await api.getDocumentDownload('user', path).then(
+		download = await api.getDocumentDownload('user', path).then(
 			(response) => {
 				return response
 			},
@@ -70,11 +71,10 @@ api.login = async (username, password) => {
 				return null
 			}
 		)
-		if (download) {
-			console.log('User profile download: %o', download)
-		}
 	}
-	return user
+	const payload = { user: user.toObject(), userProfileImage: download ? { ...download } : null }
+
+	return payload
 }
 
 /**

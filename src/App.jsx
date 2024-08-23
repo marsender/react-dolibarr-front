@@ -11,8 +11,8 @@ import api from './services/apiService'
 import './App.css'
 
 function App() {
-	const user = new User(useSelector(selectUser))
 	const isLoggedIn = useSelector(selectIsLoggedIn)
+	const user = new User(useSelector(selectUser))
 	api.setToken(user.getToken())
 
 	return (
