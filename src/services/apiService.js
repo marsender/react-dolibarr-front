@@ -59,7 +59,7 @@ api.login = async (username, password) => {
 	user.setToken(token)
 	// Get user profile image
 	let download = null
-	if (user.photo.length) {
+	if (user.photo) {
 		const parts = user.photo.split('.')
 		const path = user.id + '/photos/thumbs/' + parts[0] + '_small.' + parts[1]
 		download = await api.getDocumentDownload('user', path).then(
