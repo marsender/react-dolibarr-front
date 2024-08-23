@@ -20,7 +20,7 @@ const userSlice = createSlice({
 			state.isLoggedIn = false
 		},
 		updateUser: (state, action) => {
-			state.user = { ...state.user, ...action.payload }
+			state.userReducer = { ...state.userReducer, ...action.payload }
 		},
 	},
 })
@@ -29,8 +29,8 @@ const userSlice = createSlice({
 export const { login, logout, updateUser } = userSlice.actions
 
 // Export selectors
-export const selectUser = (state) => state.user.user
-export const selectIsLoggedIn = (state) => state.user.isLoggedIn
+export const selectUser = (state) => state.userReducer.user
+export const selectIsLoggedIn = (state) => state.userReducer.isLoggedIn
 
 // Export the reducer
 export default userSlice.reducer

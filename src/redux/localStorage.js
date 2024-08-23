@@ -16,8 +16,8 @@ export const loadState = () => {
 		}
 
 		// Initialize user state if not present
-		if (!loaded.user) {
-			loaded.user = {
+		if (!loaded.userReducer) {
+			loaded.userReducer = {
 				user: {},
 				isLoggedIn: false,
 			}

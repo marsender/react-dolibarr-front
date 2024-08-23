@@ -4,8 +4,8 @@ import userReducer from './reducers/userSlice'
 import { loadState, saveState } from './localStorage'
 
 const reducer = combineReducers({
-	user: userReducer,
-	// other: otherReducer,
+	userReducer,
+	// otherReducer,
 })
 
 const preloadedState = loadState()
