@@ -17,13 +17,17 @@ export class Invoice {
 		this.dateValidation = dateValidation.toLocaleDateString(process.env.LOCALE) // en-US
 		this.totalHt = numberFormatter.format(props.total_ht) + ' ' + process.env.CURRENCY
 		this.totalTtc = numberFormatter.format(props.total_ttc) + ' ' + process.env.CURRENCY
-		this.lines = props.lines.map((item) => new InvoiceLine(item))
+		this.lines = props.lines ? props.lines.map((item) => new InvoiceLine(item)) : []
 	}
 	setThirdPartyName(name) {
 		this.thirdPartyName = name
 	}
 	// List of properties to fetch
-	static getApiProperties() {
-		return 'id,ref,socid,date_validation,total_ht,total_ttc,lines'
+	static getApiProperties(detail = false) {
+		let properties = 'id,ref,socid,date_validation,total_ht,total_ttc'
+		if (detail) {
+			properties += ',lines'
+		}
+		return properties
 	}
 }
