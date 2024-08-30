@@ -10,7 +10,7 @@ import { BankAccount } from '../entities/BankAccount'
 const api = axios.create({
 	token: '',
 	//baseURL: 'https://your-api-base-url.com', // replace with your API base URL
-	timeout: 1000, // optional, set request timeout
+	timeout: 30000, // optional, set request timeout in ms
 	headers: {
 		'Content-Type': 'application/json',
 		// Add any other default headers if needed
@@ -114,11 +114,7 @@ api.getInvoices = async () => {
 			})
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios Invoices error %s: %s', error.code, error.message)
-				throw new Error(`Axios Invoices error ${error.code}: ${error.message}`)
-			}
-			return []
+			throw new Error(`Axios Invoices error ${error.code}: ${error.message}`)
 		})
 	// Fetch third party for each invoice
 	// await Promise.all(
@@ -143,11 +139,7 @@ api.getInvoice = async (id) => {
 			return item
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios Invoice error %s: %s', error.code, error.message)
-				throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)
-			}
-			return null
+			throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)
 		})
 	if (!item) {
 		return null
@@ -174,11 +166,7 @@ api.getThirdParties = async () => {
 			return result.data.map((item) => new ThirdParty(item))
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios ThirdParties error %s: %s', error.code, error.message)
-				throw new Error(`Axios ThirdParties error ${error.code}: ${error.message}`)
-			}
-			return []
+			throw new Error(`Axios ThirdParties error ${error.code}: ${error.message}`)
 		})
 	return items
 }
@@ -213,11 +201,7 @@ api.getThirdParty = async (id) => {
 			return new ThirdParty(result.data)
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios ThirdParty error %s: %s', error.code, error.message)
-				throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)
-			}
-			return null
+			throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)
 		})
 	return item
 }
@@ -412,11 +396,7 @@ api.getDocuments = async (module, ref) => {
 			return result.data.map((item) => new Document(item))
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios ThirdParties error %s: %s', error.code, error.message)
-				throw new Error(`Axios Documents module error ${error.code}: ${error.message}`)
-			}
-			return []
+			throw new Error(`Axios Documents module error ${error.code}: ${error.message}`)
 		})
 	return items
 }
@@ -431,11 +411,7 @@ api.getDocumentDownload = async (module, path) => {
 			return new Download(result.data)
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios ThirdParty error %s: %s', error.code, error.message)
-				throw new Error(`Axios Document download error ${error.code}: ${error.message}`)
-			}
-			return null
+			throw new Error(`Axios Document download error ${error.code}: ${error.message}`)
 		})
 	return item
 }
@@ -455,11 +431,7 @@ api.getBankAccounts = async () => {
 			return result.data.map((item) => new BankAccount(item))
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios BankAccounts error %s: %s', error.code, error.message)
-				throw new Error(`Axios BankAccounts error ${error.code}: ${error.message}`)
-			}
-			return []
+			throw new Error(`Axios BankAccounts error ${error.code}: ${error.message}`)
 		})
 	return items
 }
@@ -480,11 +452,7 @@ api.getUsers = async (username = null) => {
 			return result.data.map((item) => new User(item))
 		})
 		.catch((error) => {
-			if (error.code !== 'ECONNABORTED') {
-				//console.log('Axios Users error %s: %s', error.code, error.message)
-				throw new Error(`Axios Users error ${error.code}: ${error.message}`)
-			}
-			return []
+			throw new Error(`Axios Users error ${error.code}: ${error.message}`)
 		})
 	return items
 }
