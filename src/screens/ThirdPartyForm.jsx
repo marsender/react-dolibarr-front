@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import api from '../services/apiService'
+import apiThirdPartyService from '../services/apiThirdPartyService'
 
 const ThirdPartyForm = () => {
 	const { t } = useTranslation()
@@ -18,7 +18,7 @@ const ThirdPartyForm = () => {
 		const formData = new FormData(e.target)
 		// Create third party
 		try {
-			await api.createThirdParty(formData).then((data) => {
+			await apiThirdPartyService.createThirdParty(formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return

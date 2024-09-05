@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import api from '../services/apiService'
+import apiInvoiceService from '../services/apiInvoiceService'
 import InvoiceComponent from '../components/InvoiceComponent'
 
 const Invoices = () => {
@@ -10,7 +10,7 @@ const Invoices = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoices.title')
-		api.getInvoices().then((response) => {
+		apiInvoiceService.getInvoices().then((response) => {
 			setInvoices(response)
 		})
 	}, [t])

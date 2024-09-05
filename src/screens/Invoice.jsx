@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import api from '../services/apiService'
+import apiInvoiceService from '../services/apiInvoiceService'
 import InvoiceComponent from '../components/InvoiceComponent'
 import DownloadComponent from '../components/DownloadComponent'
 import ReturnButtonComponent from '../components/ReturnButtonComponent'
@@ -14,7 +14,7 @@ const Invoice = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoice.title')
-		api.getInvoice(id).then((response) => {
+		apiInvoiceService.getInvoice(id).then((response) => {
 			if (response) {
 				setInvoice(response)
 			}

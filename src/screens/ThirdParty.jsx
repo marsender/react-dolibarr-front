@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import api from '../services/apiService'
+import apiThirdPartyService from '../services/apiThirdPartyService'
 import ThirdPartyComponent from '../components/ThirdPartyComponent'
 import ReturnButtonComponent from '../components/ReturnButtonComponent'
 
@@ -13,7 +13,7 @@ const ThirdParty = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparty.title')
-		api.getThirdParty(id).then((response) => {
+		apiThirdPartyService.getThirdParty(id).then((response) => {
 			if (response) {
 				setThirdParty(response)
 			}

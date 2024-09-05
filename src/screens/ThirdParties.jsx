@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import api from '../services/apiService'
+import apiThirdPartyService from '../services/apiThirdPartyService'
 import ThirdPartyComponent from '../components/ThirdPartyComponent'
 
 const ThirdParties = () => {
@@ -10,7 +10,7 @@ const ThirdParties = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparties.title')
-		api.getThirdParties().then((response) => {
+		apiThirdPartyService.getThirdParties().then((response) => {
 			setThirdParties(response)
 		})
 	}, [t])

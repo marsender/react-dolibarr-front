@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { login, logout } from '../redux/reducers/userSlice'
-import api from '../services/apiService'
+import apiAuthService from '../services/apiAuthService'
 
 const Login = () => {
 	const { t } = useTranslation()
@@ -21,7 +21,7 @@ const Login = () => {
 		const username = data.get('username')
 		const password = data.get('password')
 		try {
-			await api.login(username, password).then((data) => {
+			await apiAuthService.login(username, password).then((data) => {
 				if (data) {
 					//console.log('Login ok with data: %o', data)
 					dispatch(login(data))

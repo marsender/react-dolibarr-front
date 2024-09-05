@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import api from '../services/apiService'
+import apiInvoiceService from '../services/apiInvoiceService'
 import ThirdPartySelectorComponent from '../components/ThirdPartySelectorComponent'
 import BankAccountSelectorComponent from '../components/BankAccountSelectorComponent'
 
@@ -37,7 +37,7 @@ const InvoiceForm = () => {
 		}
 		// Create invoice
 		try {
-			await api.createInvoice(formData).then((data) => {
+			await apiInvoiceService.createInvoice(formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
@@ -51,7 +51,7 @@ const InvoiceForm = () => {
 		}
 		// Update invoice
 		// try {
-		// 	await api.updateInvoice(invoiceId, formData).then((data) => {
+		// 	await apiInvoiceService.updateInvoice(invoiceId, formData).then((data) => {
 		// 		if (typeof data.error !== 'undefined') {
 		// 			setError(t(data.error))
 		// 			return
@@ -65,7 +65,7 @@ const InvoiceForm = () => {
 		// }
 		// Add invoice lines
 		try {
-			await api.addInvoiceLine(invoiceId, formData).then((data) => {
+			await apiInvoiceService.addInvoiceLine(invoiceId, formData).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
@@ -78,7 +78,7 @@ const InvoiceForm = () => {
 		}
 		// Validate invoice
 		try {
-			await api.invoiceValidate(invoiceId).then((data) => {
+			await apiInvoiceService.invoiceValidate(invoiceId).then((data) => {
 				if (typeof data.error !== 'undefined') {
 					setError(t(data.error))
 					return
