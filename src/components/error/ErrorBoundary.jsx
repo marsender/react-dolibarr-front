@@ -12,8 +12,8 @@ const ErrorBoundary = ({ children, fallback }) => {
 }
 
 ErrorBoundary.propTypes = {
-	children: PropTypes.node,
-	fallback: PropTypes.node,
+	children: PropTypes.node.isRequired,
+	fallback: PropTypes.func,
 }
 
 export default ErrorBoundary

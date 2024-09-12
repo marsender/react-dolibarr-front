@@ -18,7 +18,7 @@ function ReturnButtonComponent({ link }) {
 }
 
 ReturnButtonComponent.propTypes = {
-	link: PropTypes.string,
+	link: PropTypes.string.isRequired,
 }
 
 export default ReturnButtonComponent

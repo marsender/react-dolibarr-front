@@ -18,5 +18,5 @@ export const ErrorBoundaryProvider = ({ children }) => {
 }
 
 ErrorBoundaryProvider.propTypes = {
-	children: PropTypes.node,
+	children: PropTypes.node.isRequired,
 }
