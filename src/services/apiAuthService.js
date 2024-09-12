@@ -1,4 +1,6 @@
 import api from './apiService'
+import apiUserService from './apiUserService'
+import apiDocumentService from './apiDocumentService'
 
 const apiAuthService = {
 	login: async (username, password) => {
@@ -23,16 +25,16 @@ const apiAuthService = {
 			)
 		// Set token in order to be able to fetch users
 		api.setToken(token)
-		const users = await api.getUsers(username)
+		const users = await apiUserService.getUsers(username)
 		if (!Array.isArray(users) && users.length === 1) {
-			throw new Error(`Axios user not found: ${username}`)
+			throw new Error(`Axios User not found: ${username}`)
 		}
 		const user = users[0]
 		user.setToken(token)
 		// Get user profile image
 		let download = null
 		if (user.photo) {
-			download = await api.getDocumentDownload('user', user.getProfilePicture()).then(
+			download = await apiDocumentService.getDocumentDownload('user', user.getProfilePicture()).then(
 				(response) => {
 					return response
 				},

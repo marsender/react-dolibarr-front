@@ -47,7 +47,7 @@ const apiInvoiceService = {
 
 	getInvoice: async (id) => {
 		if (!api.validToken()) {
-			throw new Error('Axios Invoice: missing api token')
+			throw new Error('Invoice: missing api token')
 		}
 		const item = await api
 			.get(`/invoices/${id}`)
@@ -103,7 +103,7 @@ const apiInvoiceService = {
 
 	updateInvoice: async (invoiceId, formData) => {
 		if (!api.validToken()) {
-			throw new Error('Invoice add line: missing api token')
+			throw new Error('Invoice update: missing api token')
 		}
 		const data = {}
 		// Add properties if set

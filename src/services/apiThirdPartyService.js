@@ -42,9 +42,6 @@ const apiThirdPartyService = {
 	 * eg: { 1: "Name 1", 2: "Name 2" }
 	 */
 	getThirdPartyNames: async () => {
-		if (!api.validToken()) {
-			return {}
-		}
 		const thirdParties = await apiThirdPartyService.getThirdParties()
 		const obj = thirdParties
 			.map((item) => {
@@ -62,7 +59,7 @@ const apiThirdPartyService = {
 	 */
 	createThirdParty: async (formData) => {
 		if (!api.validToken()) {
-			throw new Error('Third party create: missing api token')
+			throw new Error('ThirdParty create: missing api token')
 		}
 		const name = formData.get('name')
 		const email = formData.get('email')

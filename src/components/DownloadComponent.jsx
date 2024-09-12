@@ -1,18 +1,18 @@
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import api from '../services/apiService'
+import apiDocumentService from '../services/apiDocumentService'
 
 const DownloadComponent = ({ module, documentRef }) => {
 	const { t } = useTranslation()
 
 	const downloadFile = async () => {
-		let invoiceDocument = await api.getDocuments(module, documentRef).then((response) => {
+		let invoiceDocument = await apiDocumentService.getDocuments(module, documentRef).then((response) => {
 			if (!Array.isArray(response) && response.length) {
 				throw new Error('Incorrect module document: ' + module + ' ' + documentRef)
 			}
 			return response[0]
 		})
-		let download = await api.getDocumentDownload(module, invoiceDocument.path).then((response) => {
+		let download = await apiDocumentService.getDocumentDownload(module, invoiceDocument.path).then((response) => {
 			if (response === null) {
 				throw new Error('Incorrect module document download: ' + module + ' ' + documentRef)
 			}
@@ -59,8 +59,8 @@ const DownloadComponent = ({ module, documentRef }) => {
 }
 
 DownloadComponent.propTypes = {
-	module: PropTypes.string,
-	documentRef: PropTypes.string,
+	module: PropTypes.string.isRequired,
+	documentRef: PropTypes.string.isRequired,
 }
 
 export default DownloadComponent

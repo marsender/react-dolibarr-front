@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import api from '../services/apiService'
+import apiBankAccountService from '../services/apiBankAccountService'
 
 function BankAccountSelectorComponent() {
 	const { t } = useTranslation()
@@ -8,7 +8,7 @@ function BankAccountSelectorComponent() {
 	const [selectedBankAccount, setSelectedBankAccount] = useState('')
 
 	useEffect(() => {
-		api.getBankAccounts().then((response) => {
+		apiBankAccountService.getBankAccounts().then((response) => {
 			const bankAccounts = response.map((item) => {
 				return { id: item.id, value: item.label }
 			})
