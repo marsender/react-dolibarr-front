@@ -27,7 +27,8 @@ npm install
 Adjust env file
 
 ```bash
-nano .env
+cp .env .env.local
+nano .env.local
 ```
 
 ## Build for dev

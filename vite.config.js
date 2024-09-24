@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 
-dotenv.config() // load env vars from .env
+// load env vars from .env.local and add .env vars
+dotenv.config({ path: ['.env.local', '.env'] })
 
 let host = new URL(process.env.LOCAL_URL).host.split(':')[0]
 let port = new URL(process.env.LOCAL_URL).port
