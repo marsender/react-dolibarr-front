@@ -30,7 +30,7 @@ const ThirdParties = () => {
 				{thirdParties ? (
 					thirdParties.map((item) => (
 						<li key={item.id} className="py-2 sm:py-2">
-							{ThirdPartyComponent(item, { detail: false })}
+							<ThirdPartyComponent thirdParty={item} detail={false} />
 						</li>
 					))
 				) : (
