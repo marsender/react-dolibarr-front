@@ -24,7 +24,7 @@ ThirdPartyComponent.propTypes = {
 	thirdParty: PropTypes.shape({
 		id: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
-		email: PropTypes.string.isRequired,
+		email: PropTypes.string,
 		phone: PropTypes.string,
 		address: PropTypes.string,
 		zip: PropTypes.string,

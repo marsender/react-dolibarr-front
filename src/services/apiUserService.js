@@ -15,7 +15,7 @@ const apiUserService = {
 					console.log('Axios Users incorrect response: %o', result)
 					return []
 				}
-				return result.data.map((item) => new User(item))
+				return result.data.map((item) => new User({ ...item, id: parseInt(item.id, 10) }))
 			})
 			.catch((error) => {
 				throw new Error(`Axios Users error ${error.code}: ${error.message}`)

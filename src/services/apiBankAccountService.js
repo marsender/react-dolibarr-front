@@ -14,7 +14,8 @@ const apiBankAccountService = {
 					console.log('Axios BankAccounts incorrect response: %o', result)
 					return []
 				}
-				return result.data.map((item) => new BankAccount(item))
+				// The API may return IDs as strings, so we parse them to numbers.
+				return result.data.map((item) => new BankAccount({ ...item, id: parseInt(item.id, 10) }))
 			})
 			.catch((error) => {
 				throw new Error(`Axios BankAccounts error ${error.code}: ${error.message}`)

@@ -8,16 +8,25 @@ const Invoices = () => {
 	const { t } = useTranslation()
 	const [invoices, setInvoices] = useState([])
 	const [dateFilter, setDateFilter] = useState('year') // 'year' or 'month'
+	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoices.title')
 		setLoading(true)
-		apiInvoiceService.getInvoices(dateFilter).then((response) => {
+		const filters = {
+			type: dateFilter,
+			year: selectedYear,
+		}
+		if (dateFilter === 'month') {
+			filters.month = selectedMonth
+		}
+		apiInvoiceService.getInvoices(filters).then((response) => {
 			setInvoices(response)
 			setLoading(false)
 		})
-	}, [t, dateFilter])
+	}, [t, dateFilter, selectedYear, selectedMonth])
 
 	const totals = useMemo(() => {
 		if (!invoices || invoices.length === 0) {
@@ -50,7 +59,51 @@ const Invoices = () => {
 					</button>
 				</Link>
 			</h1>
-			<div className="flex justify-end mb-4">
+			<div className="flex justify-between items-center mb-4">
+				<div className="flex items-center space-x-4">
+					{dateFilter === 'year' && (
+						<div>
+							<label htmlFor="year-select" className="sr-only">
+								{t('label.year')}
+							</label>
+							<select id="year-select" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+								{Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+									<option key={year} value={year}>
+										{year}
+									</option>
+								))}
+							</select>
+						</div>
+					)}
+					{dateFilter === 'month' && (
+						<div className="flex items-center space-x-2">
+							<div>
+								<label htmlFor="month-select" className="sr-only">
+									{t('label.month')}
+								</label>
+								<select id="month-select" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value, 10))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+									{Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+										<option key={month} value={month}>
+											{new Date(2000, month - 1, 1).toLocaleString(process.env.LOCALE || 'default', { month: 'long' })}
+										</option>
+									))}
+								</select>
+							</div>
+							<div>
+								<label htmlFor="year-select-month" className="sr-only">
+									{t('label.year')}
+								</label>
+								<select id="year-select-month" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+									{Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+										<option key={year} value={year}>
+											{year}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+					)}
+				</div>
 				<div className="inline-flex rounded-md shadow-sm" role="group">
 					<button
 						type="button"

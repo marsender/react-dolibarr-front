@@ -3,7 +3,7 @@ import apiThirdPartyService from './apiThirdPartyService'
 import { Invoice } from '../entities/Invoice'
 
 const apiInvoiceService = {
-	getInvoices: async (dateFilter = 'year') => {
+	getInvoices: async (filters) => {
 		if (!api.validToken()) {
 			return []
 		}
@@ -11,14 +11,21 @@ const apiInvoiceService = {
 		const thirdPartiesNames = await apiThirdPartyService.getThirdPartyNames()
 		// Get invoices
 		// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
-		const date = new Date() // Get the current date
-		let fromDate
-		if (dateFilter === 'month') {
-			fromDate = new Date(date.getFullYear(), date.getMonth(), 1, 12)
-		} else {
-			fromDate = new Date(date.getFullYear(), 0, 1, 12)
+		let sqlFilter = ''
+		if (filters) {
+			const { type, year, month } = filters
+			let fromDate, toDate
+			if (type === 'month' && year && month) {
+				fromDate = new Date(Date.UTC(year, month - 1, 1))
+				toDate = new Date(Date.UTC(year, month, 0)) // Last day of the month
+				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<=:'${toDate.toISOString().slice(0, 10)}')`
+			} else if (type === 'year' && year) {
+				fromDate = new Date(Date.UTC(year, 0, 1))
+				toDate = new Date(Date.UTC(year, 11, 31))
+				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<=:'${toDate.toISOString().slice(0, 10)}')`
+			}
+			//console.log('Type %s year %o month %o: %s', type, year, month, sqlFilter)
 		}
-		const sqlFilter = "&sqlfilters=(t.datec:>=:'" + fromDate.toISOString().slice(0, 10) + "')"
 		const properties = Invoice.getApiProperties(false)
 		const items = await api
 			.get('/invoices?sortfield=t.rowid&sortorder=DESC' + sqlFilter + '&properties=' + properties)
@@ -28,7 +35,14 @@ const apiInvoiceService = {
 					return []
 				}
 				return result.data.map((item) => {
-					const invoice = new Invoice(item)
+					// The API may return IDs and numeric values as strings, so we parse them.
+					const transformedItem = {
+						...item,
+						id: parseInt(item.id, 10),
+						total_ht: parseFloat(item.total_ht),
+						total_ttc: parseFloat(item.total_ttc),
+					}
+					const invoice = new Invoice(transformedItem)
 					if (item.socid && thirdPartiesNames[item.socid] !== undefined) {
 						invoice.setThirdPartyName(thirdPartiesNames[item.socid])
 					}
@@ -57,8 +71,23 @@ const apiInvoiceService = {
 		const item = await api
 			.get(`/invoices/${id}`)
 			.then((result) => {
-				let item = new Invoice(result.data)
-				return item
+				// The API may return IDs and numeric values as strings, so we parse them.
+				const data = result.data
+				const transformedData = {
+					...data,
+					id: parseInt(data.id, 10),
+					total_ht: parseFloat(data.total_ht),
+					total_ttc: parseFloat(data.total_ttc),
+					lines: data.lines
+						? data.lines.map((line) => ({
+								...line,
+								id: parseInt(line.id, 10),
+								total_ht: parseFloat(line.total_ht),
+								total_ttc: parseFloat(line.total_ttc),
+						  }))
+						: [],
+				}
+				return new Invoice(transformedData)
 			})
 			.catch((error) => {
 				throw new Error(`Axios Invoice error ${error.code}: ${error.message}`)

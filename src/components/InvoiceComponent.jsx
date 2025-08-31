@@ -24,10 +24,12 @@ InvoiceComponent.propTypes = {
 		id: PropTypes.number.isRequired,
 		ref: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,
+		ht: PropTypes.number.isRequired,
+		ttc: PropTypes.number.isRequired,
 		thirdPartyName: PropTypes.string.isRequired,
 		dateValidation: PropTypes.string.isRequired,
-		totalHt: PropTypes.number.isRequired,
-		totalTtc: PropTypes.number.isRequired,
+		totalHt: PropTypes.string.isRequired,
+		totalTtc: PropTypes.string.isRequired,
 		lines: PropTypes.arrayOf(
 			PropTypes.shape({
 				id: PropTypes.number.isRequired,

@@ -14,7 +14,8 @@ const apiThirdPartyService = {
 					console.log('Axios ThirdParties incorrect response: %o', result)
 					return []
 				}
-				return result.data.map((item) => new ThirdParty(item))
+				// The API may return IDs as strings, so we parse them to numbers.
+				return result.data.map((item) => new ThirdParty({ ...item, id: parseInt(item.id, 10) }))
 			})
 			.catch((error) => {
 				throw new Error(`Axios ThirdParties error ${error.code}: ${error.message}`)
@@ -29,7 +30,8 @@ const apiThirdPartyService = {
 		const item = await api
 			.get(`/thirdparties/${id}`)
 			.then((result) => {
-				return new ThirdParty(result.data)
+				// The API may return IDs as strings, so we parse it to a number.
+				return new ThirdParty({ ...result.data, id: parseInt(result.data.id, 10) })
 			})
 			.catch((error) => {
 				throw new Error(`Axios ThirdParty error ${error.code}: ${error.message}`)

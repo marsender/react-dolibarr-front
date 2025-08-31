@@ -14,7 +14,7 @@ const apiDocumentService = {
 					console.log('Axios Documents incorrect response: %o', result)
 					return []
 				}
-				return result.data.map((item) => new Document(item))
+				return result.data.map((item) => new Document({ ...item, id: parseInt(item.id, 10) }))
 			})
 			.catch((error) => {
 				throw new Error(`Axios Documents module error ${error.code}: ${error.message}`)
