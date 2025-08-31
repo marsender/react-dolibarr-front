@@ -7,11 +7,14 @@ import ThirdPartyComponent from '../components/ThirdPartyComponent'
 const ThirdParties = () => {
 	const { t } = useTranslation()
 	const [thirdParties, setThirdParties] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparties.title')
+		setLoading(true)
 		apiThirdPartyService.getThirdParties().then((response) => {
 			setThirdParties(response)
+			setLoading(false)
 		})
 	}, [t])
 
@@ -27,14 +30,14 @@ const ThirdParties = () => {
 				</Link>
 			</h1>
 			<ul className="divide-y divide-gray-200 dark:divide-gray-700">
-				{thirdParties ? (
+				{loading ? (
+					<p>{t('label.loading')}</p>
+				) : (
 					thirdParties.map((item) => (
 						<li key={item.id} className="py-2 sm:py-2">
 							<ThirdPartyComponent thirdParty={item} detail={false} />
 						</li>
 					))
-				) : (
-					<p>{t('label.loading')}</p>
 				)}
 			</ul>
 		</>
