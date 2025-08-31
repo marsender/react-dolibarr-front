@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 export default function ThirdPartyComponent({ thirdParty, detail }) {
 	return (
@@ -17,4 +18,18 @@ export default function ThirdPartyComponent({ thirdParty, detail }) {
 			) : null}
 		</>
 	)
+}
+
+ThirdPartyComponent.propTypes = {
+	thirdParty: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+		email: PropTypes.string.isRequired,
+		phone: PropTypes.string,
+		address: PropTypes.string,
+		zip: PropTypes.string,
+		town: PropTypes.string,
+		url: PropTypes.string,
+	}).isRequired,
+	detail: PropTypes.bool.isRequired,
 }

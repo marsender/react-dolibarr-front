@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import InvoiceLineComponent from './InvoiceLineComponent'
+import PropTypes from 'prop-types'
 
 export default function InvoiceComponent({ invoice, detail }) {
 	return (
@@ -16,4 +17,22 @@ export default function InvoiceComponent({ invoice, detail }) {
 			</div>
 		</>
 	)
+}
+
+InvoiceComponent.propTypes = {
+	invoice: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		ref: PropTypes.string.isRequired,
+		url: PropTypes.string.isRequired,
+		thirdPartyName: PropTypes.string.isRequired,
+		dateValidation: PropTypes.string.isRequired,
+		totalHt: PropTypes.number.isRequired,
+		totalTtc: PropTypes.number.isRequired,
+		lines: PropTypes.arrayOf(
+			PropTypes.shape({
+				id: PropTypes.number.isRequired,
+			})
+		),
+	}).isRequired,
+	detail: PropTypes.bool.isRequired,
 }
