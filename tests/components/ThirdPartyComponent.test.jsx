@@ -8,7 +8,7 @@ describe('ThirdPartyComponent tests', () => {
 	const item = new ThirdParty(entity)
 
 	test('check detail true', () => {
-		render(<>{ThirdPartyComponent(item, { detail: true })}</>)
+		render(<ThirdPartyComponent thirdParty={item} detail={true} />)
 		//screen.debug()
 		// Look for elements that must exist
 		let element = null
@@ -26,7 +26,11 @@ describe('ThirdPartyComponent tests', () => {
 	})
 
 	test('check detail false', () => {
-		render(<MemoryRouter>{ThirdPartyComponent(item, { detail: false })}</MemoryRouter>)
+		render(
+			<MemoryRouter>
+				<ThirdPartyComponent thirdParty={item} detail={false} />
+			</MemoryRouter>
+		)
 		let element = null
 		// Look for elements that must exist
 		element = screen.getByRole('link')
