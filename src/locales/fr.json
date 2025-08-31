@@ -24,7 +24,10 @@
 		"title": "Déconnexion"
 	},
 	"invoices": {
-		"title": "Factures"
+		"title": "Factures",
+		"count": "Nombre de factures",
+		"total_ht": "Total HT",
+		"total_ttc": "Total TTC"
 	},
 	"invoice": {
 		"title": "Facture",

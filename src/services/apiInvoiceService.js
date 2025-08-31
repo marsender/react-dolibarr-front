@@ -12,8 +12,9 @@ const apiInvoiceService = {
 		// Get invoices
 		// sqlfilters samples (t.ref:like:'FA%') (t.datec:>=:'2024-08-01')
 		const date = new Date() // Get the current date
-		const firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12)
-		const sqlFilter = "&sqlfilters=(t.datec:>=:'" + firstDay.toISOString().slice(0, 10) + "')"
+		//const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1, 12)
+		const firstDayOfCurrentYear = new Date(date.getFullYear(), 0, 1, 12)
+		const sqlFilter = "&sqlfilters=(t.datec:>=:'" + firstDayOfCurrentYear.toISOString().slice(0, 10) + "')"
 		const properties = Invoice.getApiProperties(false)
 		const items = await api
 			.get('/invoices?sortfield=t.rowid&sortorder=DESC' + sqlFilter + '&properties=' + properties)

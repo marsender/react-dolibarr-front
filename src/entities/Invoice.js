@@ -13,6 +13,8 @@ export class Invoice {
 		this.socid = props.socid
 		this.thirdPartyName = ''
 		this.url = `/invoice/${props.id}`
+		this.ht = parseFloat(props.total_ht || 0)
+		this.ttc = parseFloat(props.total_ttc || 0)
 		const dateValidation = new Date(props.date_validation * 1000)
 		this.dateValidation = dateValidation.toLocaleDateString(process.env.LOCALE) // en-US
 		this.totalHt = numberFormatter.format(props.total_ht) + ' ' + process.env.CURRENCY
