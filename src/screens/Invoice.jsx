@@ -26,7 +26,7 @@ const Invoice = () => {
 			<h1 className="flex text-center my-4 text-2xl font-semibold">
 				{t('invoice.title')} - {invoice.thirdPartyName}
 			</h1>
-			{InvoiceComponent(invoice, { detail: true })}
+			<InvoiceComponent invoice={invoice} detail={true} />
 			<div className="mt-4 flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
 				<ReturnButtonComponent link="/invoices" />
 				<DownloadComponent module="invoice" documentRef={invoice.ref} />

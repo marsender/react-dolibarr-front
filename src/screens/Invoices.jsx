@@ -7,15 +7,17 @@ import InvoiceComponent from '../components/InvoiceComponent'
 const Invoices = () => {
 	const { t } = useTranslation()
 	const [invoices, setInvoices] = useState([])
+	const [dateFilter, setDateFilter] = useState('year') // 'year' or 'month'
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoices.title')
-		apiInvoiceService.getInvoices().then((response) => {
+		setLoading(true)
+		apiInvoiceService.getInvoices(dateFilter).then((response) => {
 			setInvoices(response)
 			setLoading(false)
 		})
-	}, [t])
+	}, [t, dateFilter])
 
 	const totals = useMemo(() => {
 		if (!invoices || invoices.length === 0) {
@@ -39,7 +41,7 @@ const Invoices = () => {
 
 	return (
 		<>
-			<h1 className="flex text-center my-4 text-2xl font-semibold">
+			<h1 className="flex items-center my-4 text-2xl font-semibold">
 				{t('invoices.title')}
 				<Link to="/invoice/add">
 					<button className="ml-4 px-3 py-2 text-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -48,13 +50,31 @@ const Invoices = () => {
 					</button>
 				</Link>
 			</h1>
+			<div className="flex justify-end mb-4">
+				<div className="inline-flex rounded-md shadow-sm" role="group">
+					<button
+						type="button"
+						onClick={() => setDateFilter('month')}
+						className={`px-4 py-2 text-sm font-medium ${dateFilter === 'month' ? 'text-blue-700 bg-blue-50 dark:bg-gray-700 dark:text-white' : 'text-gray-900 bg-white dark:text-white dark:bg-gray-800'} border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+					>
+						{t('label.month', 'Month')}
+					</button>
+					<button
+						type="button"
+						onClick={() => setDateFilter('year')}
+						className={`px-4 py-2 text-sm font-medium ${dateFilter === 'year' ? 'text-blue-700 bg-blue-50 dark:bg-gray-700 dark:text-white' : 'text-gray-900 bg-white dark:text-white dark:bg-gray-800'} border-t border-b border-r border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white`}
+					>
+						{t('label.year', 'Year')}
+					</button>
+				</div>
+			</div>
 			<ul className="divide-y divide-gray-200 dark:divide-gray-700">
 				{loading ? (
 					<p>{t('label.loading')}</p>
 				) : (
 					invoices.map((item) => (
 						<li key={item.id} className="py-3 sm:py-4">
-							{InvoiceComponent(item, { detail: false })}
+							<InvoiceComponent invoice={item} detail={false} />
 						</li>
 					))
 				)}
