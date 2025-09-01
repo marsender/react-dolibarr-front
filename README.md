@@ -1,6 +1,6 @@
 # react-dolibarr-front
 
-Dolibarr front
+This project is a React-based frontend for the Dolibarr ERP & CRM software. It communicates with the Dolibarr API to provide a modern and responsive user interface.
 
 ## Requirements
 
