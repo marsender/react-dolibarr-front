@@ -27,7 +27,7 @@ export class Invoice {
 	}
 	// List of properties to fetch
 	static getApiProperties(detail = false) {
-		let properties = 'id,ref,socid,date_validation,total_ht,total_ttc'
+		let properties = 'id,ref,socid,date_validation,total_ht,total_ttc,status'
 		if (detail) {
 			properties += ',lines'
 		}

@@ -16,13 +16,13 @@ const apiInvoiceService = {
 			const { type, year, month } = filters
 			let fromDate, toDate
 			if (type === 'month' && year && month) {
-				fromDate = new Date(Date.UTC(year, month - 1, 1))
-				toDate = new Date(Date.UTC(year, month, 0)) // Last day of the month
-				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<=:'${toDate.toISOString().slice(0, 10)}')`
+				fromDate = new Date(Date.UTC(year, month - 1, 1)) // First day of the month
+				toDate = new Date(Date.UTC(year, month, 1)) // First day of the next month
+				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<:'${toDate.toISOString().slice(0, 10)}')`
 			} else if (type === 'year' && year) {
-				fromDate = new Date(Date.UTC(year, 0, 1))
-				toDate = new Date(Date.UTC(year, 11, 31))
-				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<=:'${toDate.toISOString().slice(0, 10)}')`
+				fromDate = new Date(Date.UTC(year, 0, 1)) // First day of the year
+				toDate = new Date(Date.UTC(year + 1, 0, 1)) // First day of the next year
+				sqlFilter = `&sqlfilters=(t.date_valid:>=:'${fromDate.toISOString().slice(0, 10)}') and (t.date_valid:<:'${toDate.toISOString().slice(0, 10)}')`
 			}
 			//console.log('Type %s year %o month %o: %s', type, year, month, sqlFilter)
 		}
