@@ -6,7 +6,7 @@ import InvoiceStatusComponent from './InvoiceStatusComponent'
 export default function InvoiceComponent({ invoice, detail }) {
 	return (
 		<>
-			<div className="flex space-x-4">
+			<div className="flex space-x-4 mb-1">
 				<div className="flex-1">{detail ? invoice.ref : <Link to={invoice.url}>{invoice.thirdPartyName}</Link>}</div>
 				<div className="w-24 text-right">
 					<InvoiceStatusComponent status={invoice.status} />
