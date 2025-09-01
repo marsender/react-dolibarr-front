@@ -8,7 +8,7 @@ import ReturnButtonComponent from '../components/ReturnButtonComponent'
 
 const Invoice = () => {
 	const { t } = useTranslation()
-	const [invoice, setInvoice] = useState([])
+	const [invoice, setInvoice] = useState(null)
 
 	const { id } = useParams()
 
@@ -20,6 +20,11 @@ const Invoice = () => {
 			}
 		})
 	}, [id, t])
+
+	if (!invoice) {
+		// Render a loading state while the invoice is being fetched.
+		return <p>{t('label.loading', 'Loading...')}</p>
+	}
 
 	return (
 		<>

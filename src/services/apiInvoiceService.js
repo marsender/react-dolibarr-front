@@ -39,6 +39,7 @@ const apiInvoiceService = {
 					const transformedItem = {
 						...item,
 						id: parseInt(item.id, 10),
+						status: parseInt(item.status, 10),
 						total_ht: parseFloat(item.total_ht),
 						total_ttc: parseFloat(item.total_ttc),
 					}
@@ -52,15 +53,6 @@ const apiInvoiceService = {
 			.catch((error) => {
 				throw new Error(`Axios Invoices error ${error.code}: ${error.message}`)
 			})
-		// Fetch third party for each invoice
-		// await Promise.all(
-		// 	items.map(async (item) => {
-		// 		const thirdParty = await this.getThirdParty(item.socid)
-		// 		if (thirdParty) {
-		// 			item.setThirdPartyName(thirdParty.name)
-		// 		}
-		// 	})
-		// )
 		return items
 	},
 
@@ -76,6 +68,7 @@ const apiInvoiceService = {
 				const transformedData = {
 					...data,
 					id: parseInt(data.id, 10),
+					status: parseInt(data.status, 10),
 					total_ht: parseFloat(data.total_ht),
 					total_ttc: parseFloat(data.total_ttc),
 					lines: data.lines

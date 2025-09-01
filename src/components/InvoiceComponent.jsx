@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom'
 import InvoiceLineComponent from './InvoiceLineComponent'
 import PropTypes from 'prop-types'
+import InvoiceStatusComponent from './InvoiceStatusComponent'
 
 export default function InvoiceComponent({ invoice, detail }) {
 	return (
 		<>
-			<div className="flex">
+			<div className="flex space-x-4">
 				<div className="flex-1">{detail ? invoice.ref : <Link to={invoice.url}>{invoice.thirdPartyName}</Link>}</div>
-				<div className="text-sm text-gray-900 dark:text-white">{invoice.dateValidation}</div>
+				<div className="w-24 text-right">
+					<InvoiceStatusComponent status={invoice.status} />
+				</div>
+				<div className="w-24 text-right text-gray-900 dark:text-white">{invoice.dateValidation}</div>
 			</div>
 			{detail && invoice.lines ? invoice.lines.map((line) => <InvoiceLineComponent key={line.id} line={line} />) : null}
 			<div className="flex space-x-4 text-sm text-gray-500 dark:text-gray-400">
@@ -22,6 +26,7 @@ export default function InvoiceComponent({ invoice, detail }) {
 InvoiceComponent.propTypes = {
 	invoice: PropTypes.shape({
 		id: PropTypes.number.isRequired,
+		status: PropTypes.number.isRequired,
 		ref: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,
 		ht: PropTypes.number.isRequired,
@@ -33,6 +38,9 @@ InvoiceComponent.propTypes = {
 		lines: PropTypes.arrayOf(
 			PropTypes.shape({
 				id: PropTypes.number.isRequired,
+				desc: PropTypes.string.isRequired,
+				totalHt: PropTypes.string.isRequired,
+				totalTtc: PropTypes.string.isRequired,
 			})
 		),
 	}).isRequired,

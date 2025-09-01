@@ -11,7 +11,9 @@
 		"loading": "Loading",
 		"add": "Add",
 		"download": "Download",
-		"return": "Return"
+		"return": "Return",
+		"month": "Month",
+		"year": "Year"
 	},
 	"home": {
 		"title": "Home"
@@ -24,11 +26,21 @@
 		"title": "Logout"
 	},
 	"invoices": {
-		"title": "Invoices"
+		"title": "Invoices",
+		"count": "Number of invoices",
+		"total_ht": "Total excl. VAT",
+		"total_ttc": "Total incl. VAT"
 	},
 	"invoice": {
 		"title": "Invoice",
-		"create": "New invoice"
+		"create": "New invoice",
+		"status": {
+			"draft": "Draft",
+			"validated": "Validated",
+			"closed": "Paid",
+			"abandoned": "Abandoned",
+			"unknown": "Unknown"
+		}
 	},
 	"invoiceline": {
 		"desc": "Description",

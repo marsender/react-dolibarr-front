@@ -9,6 +9,7 @@ export class Invoice {
 			maximumFractionDigits: 2,
 		})
 		this.id = props.id
+		this.status = props.status
 		this.ref = props.ref
 		this.socid = props.socid
 		this.thirdPartyName = ''

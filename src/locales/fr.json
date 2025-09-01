@@ -11,7 +11,9 @@
 		"loading": "Chargement",
 		"download": "Télécharger",
 		"add": "Ajouter",
-		"return": "Retour"
+		"return": "Retour",
+		"month": "Mois",
+		"year": "Année"
 	},
 	"home": {
 		"title": "Accueil"
@@ -31,7 +33,14 @@
 	},
 	"invoice": {
 		"title": "Facture",
-		"create": "Nouvelle facture"
+		"create": "Nouvelle facture",
+		"status": {
+			"draft": "Brouillon",
+			"validated": "Validée",
+			"closed": "Payée",
+			"abandoned": "Abandonnée",
+			"unknown": "Inconnu"
+		}
 	},
 	"invoiceline": {
 		"desc": "Description",

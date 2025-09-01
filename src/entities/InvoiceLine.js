@@ -13,6 +13,8 @@ export class InvoiceLine {
 		this.qty = props.qty
 		this.duree = props.duree
 		this.remise_percent = props.remise_percent
+		this.ht = parseFloat(props.total_ht || 0)
+		this.ttc = parseFloat(props.total_ttc || 0)
 		this.subprice = numberFormatter.format(props.subprice) + ' ' + process.env.CURRENCY
 		this.totalHt = numberFormatter.format(props.total_ht) + ' ' + process.env.CURRENCY
 		this.totalTva = numberFormatter.format(props.total_tva) + ' ' + process.env.CURRENCY

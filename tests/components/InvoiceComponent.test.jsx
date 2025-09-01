@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import InvoiceComponent from '../../src/components/InvoiceComponent'
 import InvoiceLineComponent from '../../src/components/InvoiceLineComponent'
+import InvoiceStatusComponent from '../../src/components/InvoiceStatusComponent'
 
 // Mock the child component to isolate the InvoiceComponent logic
 jest.mock('../../src/components/InvoiceLineComponent', () => {
@@ -10,25 +11,35 @@ jest.mock('../../src/components/InvoiceLineComponent', () => {
 		default: jest.fn(({ line }) => <div data-testid="invoice-line">Mocked Line: {line.id}</div>),
 	}
 })
+jest.mock('../../src/components/InvoiceStatusComponent', () => {
+	return {
+		__esModule: true,
+		default: jest.fn(({ status }) => <div data-testid="invoice-status">Mocked Status: {status}</div>),
+	}
+})
 
 describe('InvoiceComponent tests', () => {
 	const sampleInvoice = {
 		id: 1,
+		status: 1,
 		ref: 'FA23-0001',
 		url: '/invoices/1',
 		thirdPartyName: 'Test Customer',
 		dateValidation: '2023-10-27',
-		totalHt: 100.0,
-		totalTtc: 120.0,
+		ht: 100.0,
+		ttc: 120.0,
+		totalHt: '100.00',
+		totalTtc: '120.00',
 		lines: [
-			{ id: 10, description: 'Product A' },
-			{ id: 11, description: 'Service B' },
+			{ id: 10, desc: 'Product A', total_ht: 50.0, total_ttc: 60.0 },
+			{ id: 11, desc: 'Service B', total_ht: 50.0, total_ttc: 60.0 },
 		],
 	}
 
 	beforeEach(() => {
 		// Clear mock history before each test
 		InvoiceLineComponent.mockClear()
+		InvoiceStatusComponent.mockClear()
 	})
 
 	test('renders in list mode (detail=false)', () => {
@@ -43,6 +54,7 @@ describe('InvoiceComponent tests', () => {
 		expect(link).toBeInTheDocument()
 		expect(link).toHaveAttribute('href', sampleInvoice.url)
 
+		expect(InvoiceStatusComponent).toHaveBeenCalledWith({ status: sampleInvoice.status }, {})
 		expect(screen.getByText(sampleInvoice.dateValidation)).toBeInTheDocument()
 		expect(screen.getByText(sampleInvoice.ref)).toBeInTheDocument()
 		expect(screen.getByText(`${sampleInvoice.totalHt} HT`)).toBeInTheDocument()
@@ -61,6 +73,7 @@ describe('InvoiceComponent tests', () => {
 
 		// Check for elements that should exist in detail mode
 		expect(screen.getByText(sampleInvoice.ref)).toBeInTheDocument()
+		expect(InvoiceStatusComponent).toHaveBeenCalledWith({ status: sampleInvoice.status }, {})
 		expect(screen.getByText(sampleInvoice.dateValidation)).toBeInTheDocument()
 		expect(screen.getByText(`${sampleInvoice.totalHt} HT`)).toBeInTheDocument()
 		expect(screen.getByText(`${sampleInvoice.totalTtc} TTC`)).toBeInTheDocument()
@@ -76,8 +89,21 @@ describe('InvoiceComponent tests', () => {
 		expect(screen.queryByText(sampleInvoice.thirdPartyName)).not.toBeInTheDocument()
 	})
 
-	test('renders correctly when invoice has no lines in detail mode', () => {
+	test('renders correctly when invoice has empty lines array in detail mode', () => {
 		const invoiceWithoutLines = { ...sampleInvoice, lines: [] }
+		render(
+			<MemoryRouter>
+				<InvoiceComponent invoice={invoiceWithoutLines} detail={true} />
+			</MemoryRouter>
+		)
+
+		// Check that InvoiceLineComponent was not called
+		expect(InvoiceLineComponent).not.toHaveBeenCalled()
+		expect(screen.queryByTestId('invoice-line')).not.toBeInTheDocument()
+	})
+
+	test('renders correctly when invoice has no lines property in detail mode', () => {
+		const invoiceWithoutLines = { ...sampleInvoice, lines: undefined }
 		render(
 			<MemoryRouter>
 				<InvoiceComponent invoice={invoiceWithoutLines} detail={true} />
