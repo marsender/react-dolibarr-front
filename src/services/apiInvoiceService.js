@@ -66,7 +66,7 @@ const apiInvoiceService = {
 				// The API may return IDs and numeric values as strings, so we parse them.
 				const data = result.data
 				let transformedLines = []
-				if (data.lines) {
+				if (data.lines && Array.isArray(data.lines)) {
 					transformedLines = data.lines.map((line) => ({
 						...line,
 						id: parseInt(line.id, 10),
