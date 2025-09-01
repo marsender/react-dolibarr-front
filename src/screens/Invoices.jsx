@@ -41,6 +41,21 @@ const Invoices = () => {
 		}
 	}, [invoices])
 
+	const handleYearChange = (direction) => {
+		setSelectedYear((prevYear) => (direction === 'prev' ? prevYear - 1 : prevYear + 1))
+	}
+
+	const handleMonthChange = (direction) => {
+		const newDate = new Date(selectedYear, selectedMonth - 1, 1)
+		if (direction === 'prev') {
+			newDate.setMonth(newDate.getMonth() - 1)
+		} else {
+			newDate.setMonth(newDate.getMonth() + 1)
+		}
+		setSelectedYear(newDate.getFullYear())
+		setSelectedMonth(newDate.getMonth() + 1)
+	}
+
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
 	const numberFormatter = new Intl.NumberFormat(process.env.LOCALE, {
 		style: 'decimal', // Other options: 'currency', 'percent', etc.
@@ -62,21 +77,32 @@ const Invoices = () => {
 			<div className="flex justify-between items-center mb-4">
 				<div className="flex items-center space-x-4">
 					{dateFilter === 'year' && (
-						<div>
-							<label htmlFor="year-select" className="sr-only">
-								{t('label.year')}
-							</label>
-							<select id="year-select" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-								{Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map((year) => (
-									<option key={year} value={year}>
-										{year}
-									</option>
-								))}
-							</select>
+						<div className="flex items-center space-x-2">
+							<button type="button" onClick={() => handleYearChange('prev')} className="p-2.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								&lt;
+							</button>
+							<div>
+								<label htmlFor="year-select" className="sr-only">
+									{t('label.year')}
+								</label>
+								<select id="year-select" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+									{Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+										<option key={year} value={year}>
+											{year}
+										</option>
+									))}
+								</select>
+							</div>
+							<button type="button" onClick={() => handleYearChange('next')} className="p-2.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								&gt;
+							</button>
 						</div>
 					)}
 					{dateFilter === 'month' && (
 						<div className="flex items-center space-x-2">
+							<button type="button" onClick={() => handleMonthChange('prev')} className="p-2.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								&lt;
+							</button>
 							<div>
 								<label htmlFor="month-select" className="sr-only">
 									{t('label.month')}
@@ -101,6 +127,9 @@ const Invoices = () => {
 									))}
 								</select>
 							</div>
+							<button type="button" onClick={() => handleMonthChange('next')} className="p-2.5 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								&gt;
+							</button>
 						</div>
 					)}
 				</div>
