@@ -31,8 +31,8 @@ describe('InvoiceComponent tests', () => {
 		totalHt: '100.00',
 		totalTtc: '120.00',
 		lines: [
-			{ id: 10, desc: 'Product A', total_ht: 50.0, total_ttc: 60.0 },
-			{ id: 11, desc: 'Service B', total_ht: 50.0, total_ttc: 60.0 },
+			{ id: 10, desc: 'Product A', total_ht: 50.0, total_ttc: 60.0, totalHt: '50 €', totalTtc: '60 €' },
+			{ id: 11, desc: 'Service B', total_ht: 100.0, total_ttc: 120.0, totalHt: '100 €', totalTtc: '120 €' },
 		],
 	}
 
