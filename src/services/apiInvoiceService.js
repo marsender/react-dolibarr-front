@@ -65,20 +65,22 @@ const apiInvoiceService = {
 			.then((result) => {
 				// The API may return IDs and numeric values as strings, so we parse them.
 				const data = result.data
+				let transformedLines = []
+				if (data.lines) {
+					transformedLines = data.lines.map((line) => ({
+						...line,
+						id: parseInt(line.id, 10),
+						total_ht: parseFloat(line.total_ht),
+						total_ttc: parseFloat(line.total_ttc),
+					}))
+				}
 				const transformedData = {
 					...data,
 					id: parseInt(data.id, 10),
 					status: parseInt(data.status, 10),
 					total_ht: parseFloat(data.total_ht),
 					total_ttc: parseFloat(data.total_ttc),
-					lines: data.lines
-						? data.lines.map((line) => ({
-								...line,
-								id: parseInt(line.id, 10),
-								total_ht: parseFloat(line.total_ht),
-								total_ttc: parseFloat(line.total_ttc),
-						  }))
-						: [],
+					lines: transformedLines,
 				}
 				return new Invoice(transformedData)
 			})
