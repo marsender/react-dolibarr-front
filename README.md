@@ -1,5 +1,7 @@
 # react-dolibarr-front
 
+![CI](https://github.com/marsender/react-dolibarr-front/workflows/CI/badge.svg)
+
 This project is a React-based frontend for the Dolibarr ERP & CRM software. It communicates with the Dolibarr API to provide a modern and responsive user interface.
 
 ## Requirements
