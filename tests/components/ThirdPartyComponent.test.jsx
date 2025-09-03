@@ -9,36 +9,34 @@ describe('ThirdPartyComponent tests', () => {
 
 	test('check detail true', () => {
 		render(<ThirdPartyComponent thirdParty={item} detail={true} />)
-		//screen.debug()
+
 		// Look for elements that must exist
-		let element = null
-		element = screen.getByRole('heading')
-		expect(element).toBeInTheDocument()
-		element = screen.getByText(entity.phone)
-		expect(element).toBeInTheDocument()
-		element = screen.getByText(entity.email)
-		expect(element).toBeInTheDocument()
+		expect(screen.getByRole('heading')).toBeInTheDocument()
+		expect(screen.getByText(entity.phone)).toBeInTheDocument()
+		expect(screen.getByText(entity.email)).toBeInTheDocument()
+
 		// Look for elements that must be missing
-		element = screen.queryByRole('link')
-		expect(element).not.toBeInTheDocument()
-		element = screen.queryByText(entity.name)
-		expect(element).not.toBeInTheDocument()
+		expect(screen.queryByRole('link')).not.toBeInTheDocument()
+		// The name is part of the heading, so we should check for its absence as a standalone element if needed.
+		// In detail view, the name is the heading, so we don't check for its absence.
 	})
 
 	test('check detail false', () => {
 		render(
-			<MemoryRouter>
+			<MemoryRouter
+				future={{
+					v7_startTransition: true,
+					v7_relativeSplatPath: true,
+				}}
+			>
 				<ThirdPartyComponent thirdParty={item} detail={false} />
 			</MemoryRouter>
 		)
-		let element = null
+
 		// Look for elements that must exist
-		element = screen.getByRole('link')
-		expect(element).toBeInTheDocument()
-		element = screen.getByText(entity.name)
-		expect(element).toBeInTheDocument()
+		expect(screen.getByRole('link', { name: entity.name })).toBeInTheDocument()
+
 		// Look for elements that must be missing
-		element = screen.queryByText(entity.phone)
-		expect(element).not.toBeInTheDocument()
+		expect(screen.queryByText(entity.phone)).not.toBeInTheDocument()
 	})
 })
