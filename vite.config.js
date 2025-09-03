@@ -29,6 +29,9 @@ export default defineConfig({
 			},
 		},
 	},
+	preview: {
+		allowedHosts: [new URL(process.env.SITE_URL).hostname],
+	},
 	// test: {
 	// 	globals: true,
 	// 	environment: 'jsdom',
