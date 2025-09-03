@@ -1,9 +1,10 @@
 import { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ErrorBoundaryContext = createContext()
 
-export const ErrorBoundaryProvider = ({ children }) => {
+const ErrorBoundaryProvider = ({ children }) => {
 	const [hasError, setHasError] = useState(false)
 	const [error, setError] = useState(null)
 
@@ -20,3 +21,5 @@ export const ErrorBoundaryProvider = ({ children }) => {
 ErrorBoundaryProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 }
+
+export default ErrorBoundaryProvider
