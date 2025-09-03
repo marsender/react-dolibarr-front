@@ -31,6 +31,7 @@ export const loadState = () => {
 
 		return state
 	} catch (err) {
+		console.log('Error in loadState', err)
 		return undefined
 	}
 }
