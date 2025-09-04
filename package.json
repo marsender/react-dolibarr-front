@@ -14,7 +14,7 @@
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.2.7",
 		"axios": "^1.8.2",
-		"dotenv": "^16.4.5",
+		"dotenv": "^17.2.2",
 		"fs": "^0.0.1-security",
 		"he": "^1.2.0",
 		"i18next": "^25.4.1",
