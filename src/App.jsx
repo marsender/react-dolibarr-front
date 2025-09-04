@@ -8,7 +8,6 @@ import UnloggedApp from './screens/UnloggedApp'
 import ErrorBoundary from './components/error/ErrorBoundary'
 import ErrorLogger from './components/error/ErrorLogger'
 import api from './services/apiService'
-import './App.css'
 
 function App() {
 	const isLoggedIn = useSelector(selectIsLoggedIn)

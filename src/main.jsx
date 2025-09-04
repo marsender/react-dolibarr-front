@@ -5,6 +5,7 @@ import store from './redux/store'
 import App from './App.jsx'
 import i18n from './i18n'
 import ErrorBoundaryProvider from './components/error/ErrorBoundaryContext.jsx'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
