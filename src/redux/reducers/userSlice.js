@@ -22,14 +22,14 @@ const userSlice = createSlice({
 			state.userProfileImage = null
 			state.isLoggedIn = false
 		},
-		updateUser: (state, action) => {
-			state.userReducer = { ...state.userReducer, ...action.payload }
-		},
+		// updateUser: (state, action) => {
+		// 	state.userReducer = { ...state.userReducer, ...action.payload }
+		// },
 	},
 })
 
 // Export actions
-export const { login, logout, updateUser } = userSlice.actions
+export const { login, logout } = userSlice.actions
 
 // Export selectors
 export const selectUser = (state) => state.userReducer.user
