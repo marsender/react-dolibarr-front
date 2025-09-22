@@ -58,7 +58,13 @@ Open the app in your browser http://react-dolibarr-front.localhost:4174/
 npm run lint
 ```
 
-## Run unit tests
+## Finds and fixes unused dependencies, exports and files
+
+```bash
+npm run knip
+```
+
+## Run tests
 
 ```bash
 npm run test
