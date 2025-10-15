@@ -14,7 +14,6 @@ const Invoices = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('invoices.title')
-		setLoading(true)
 		const filters = {
 			type: dateFilter,
 			year: selectedYear,

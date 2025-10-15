@@ -11,7 +11,6 @@ const ThirdParties = () => {
 
 	useEffect(() => {
 		document.title = t('app.title') + ' - ' + t('thirdparties.title')
-		setLoading(true)
 		apiThirdPartyService.getThirdParties().then((response) => {
 			setThirdParties(response)
 			setLoading(false)
