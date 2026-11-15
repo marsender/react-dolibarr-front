@@ -29,6 +29,7 @@
 		"title": "Invoices",
 		"count": "Number of invoices",
 		"total_ht": "Total excl. VAT",
+		"total_ht_paid": "Total paid excl. VAT",
 		"total_ttc": "Total incl. VAT"
 	},
 	"invoice": {

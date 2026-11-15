@@ -29,6 +29,7 @@
 		"title": "Factures",
 		"count": "Nombre de factures",
 		"total_ht": "Total HT",
+		"total_ht_paid": "Total HT payées",
 		"total_ttc": "Total TTC"
 	},
 	"invoice": {

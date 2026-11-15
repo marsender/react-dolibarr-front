@@ -29,13 +29,15 @@ const Invoices = () => {
 
 	const totals = useMemo(() => {
 		if (!invoices || invoices.length === 0) {
-			return { count: 0, ht: 0, ttc: 0 }
+			return { count: 0, ht: 0, htPaid: 0, ttc: 0 }
 		}
 		const totalHt = invoices.reduce((sum, invoice) => sum + invoice.ht, 0)
+		const totalHtPaid = invoices.filter((invoice) => invoice.status === 2).reduce((sum, invoice) => sum + invoice.ht, 0)
 		const totalTtc = invoices.reduce((sum, invoice) => sum + invoice.ttc, 0)
 		return {
 			count: invoices.length,
 			ht: totalHt,
+			htPaid: totalHtPaid,
 			ttc: totalTtc,
 		}
 	}, [invoices])
@@ -167,7 +169,7 @@ const Invoices = () => {
 							{t('invoices.count')}: {totals.count}
 						</span>
 						<span>
-							{t('invoices.total_ht')}: {numberFormatter.format(totals.ht) + ' ' + process.env.CURRENCY}
+							{t('invoices.total_ht')}: {numberFormatter.format(totals.ht) + ' ' + process.env.CURRENCY} - {t('invoices.total_ht_paid')}: {numberFormatter.format(totals.htPaid) + ' ' + process.env.CURRENCY}
 						</span>
 						<span>
 							{t('invoices.total_ttc')}: {numberFormatter.format(totals.ttc) + ' ' + process.env.CURRENCY}
