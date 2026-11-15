@@ -10,31 +10,35 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x]
-
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v5
+      # Node 24: Babel 8 needs ^22.18 || >=24.11, i18next 27 needs >=22.
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run linter
-        run: npm run lint --if-present
+        run: npm run lint
+
+      - name: Unused files, exports and dependencies
+        run: npm run knip
 
       - name: Run tests
         run: npm test
 
       - name: Build project
-        run: npm run build --if-present
+        run: npm run build

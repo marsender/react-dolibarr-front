@@ -1,0 +1,9 @@
+# Load nvm so node is available when Git runs this hook (a GUI client does not inherit an
+# interactive shell's PATH).
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# The same knip run as CI. Here rather than in pre-commit: knip reads the working tree, not
+# the index, so a commit made with work-in-progress beside it would be judged on files it
+# does not contain. At push time the tree is usually what is being pushed.
+npm run knip
