@@ -17,8 +17,7 @@ describe('Login tests', () => {
 
 	test('check content', () => {
 		render(<MemoryRouter>{Login()}</MemoryRouter>)
-		let element = null
-		element = screen.getByRole('heading')
+		const element = screen.getByRole('heading')
 		expect(element).toBeInTheDocument()
 		expect(React.useEffect).toHaveBeenCalled()
 		expect(React.useState).toHaveBeenCalled()

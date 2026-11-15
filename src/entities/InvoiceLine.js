@@ -1,4 +1,4 @@
-import he from 'he'
+import { decode } from 'he'
 
 export class InvoiceLine {
 	constructor(props) {
@@ -9,7 +9,7 @@ export class InvoiceLine {
 			maximumFractionDigits: 2,
 		})
 		this.id = props.id
-		this.desc = he.decode(props.desc)
+		this.desc = decode(props.desc)
 		this.qty = props.qty
 		this.duree = props.duree
 		this.remise_percent = props.remise_percent
