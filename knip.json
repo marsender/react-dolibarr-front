@@ -1,0 +1,4 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema.json",
+	"ignoreFiles": ["pm2.config.cjs", "pm2-dev.config.cjs"]
+}
