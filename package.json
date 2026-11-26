@@ -55,5 +55,12 @@
 		"tailwindcss": "^4.3.5",
 		"typescript": "^7.0.2",
 		"vite": "^8.3.8"
+	},
+	"overrides": {
+		"@tailwindcss/typography": {
+			"postcss-selector-parser": "^6.1.6"
+		},
+		"minimatch": "^11.0.9",
+		"glob": "^14.0.6"
 	}
 }
